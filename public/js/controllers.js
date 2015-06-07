@@ -7,10 +7,10 @@ function IndexCtrl ($scope, $http) {
 	});
 }
 
-function NewMasterCtrl ($scope, $http, $location) {
+function NewPersonCtrl ($scope, $http, $location) {
 	$scope.form = {};
-	$scope.saveMaster = function() {
-		$http.post('/api/newMaster', $scope.form).
+	$scope.createPerson = function() {
+		$http.post('/api/newPerson', $scope.form).
 		success(function (data) {
 			$location.url('/');
 		})

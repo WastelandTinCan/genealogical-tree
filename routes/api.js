@@ -2,7 +2,7 @@ var neo = require('neo4j');
 var db = new neo.GraphDatabase('http://localhost:7474');
 
 exports.masters = function(req, res) {
-	db.query('MATCH (n:Master)\nRETURN n', function(err, data) {
+	db.query('MATCH (n:Person)\nRETURN n', function(err, data) {
 		var results = [];
 		forEach(data, function(item) {
 			results.push(item.n._data.data);
@@ -12,9 +12,9 @@ exports.masters = function(req, res) {
 	})
 };
 
-exports.newMaster = function(req, res) {
+exports.newPerson = function(req, res) {
 	var params = {name: req.body.name}
-	db.query('CREATE (n:Master {name: ({name})})', params, function (err) {
+	db.query('CREATE (n:Person {name: ({name})})', params, function (err) {
 		if(err) { res.json(false) } else {
 			res.json(true);
 		}
@@ -62,6 +62,11 @@ exports.newChild = function(req, res) {
           })
       }
     })
+}
+
+exports.newCouple = function(req, res) {
+  console.log(req.body);
+  var params = {}
 }
 
 function forEach(array, fn) {

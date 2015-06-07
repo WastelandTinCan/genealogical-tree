@@ -9,7 +9,7 @@ config(['$routeProvider','$locationProvider', function ($routeProvider, $locatio
     }).
     when('/add', {
       templateUrl: '/partials/newMaster',
-      controller: NewMasterCtrl
+      controller: NewPersonCtrl
     }).
     when('/viewNode/:id', {
       templateUrl: '/partials/viewNode',

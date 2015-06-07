@@ -1,0 +1,816 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"fa",
+				"fail"
+			],
+			[
+				"res",
+				"response"
+			],
+			[
+				"text",
+				"text-align"
+			],
+			[
+				"padd",
+				"padding-right"
+			],
+			[
+				"background-c",
+				"background-color"
+			],
+			[
+				"pad",
+				"padding-left"
+			],
+			[
+				"mar",
+				"margin"
+			],
+			[
+				"border",
+				"border-width"
+			],
+			[
+				"bord",
+				"border-color"
+			],
+			[
+				"ra",
+				"border-top-left-radius"
+			],
+			[
+				"fon",
+				"font-style"
+			],
+			[
+				"marig",
+				"margin-top"
+			],
+			[
+				"padding",
+				"padding-bottom"
+			],
+			[
+				"paddin",
+				"padding-bottom"
+			],
+			[
+				"bac",
+				"background-color"
+			],
+			[
+				"backg",
+				"background-color"
+			],
+			[
+				"margin",
+				"margin-left"
+			],
+			[
+				"padi",
+				"padding-top"
+			],
+			[
+				"marin",
+				"margin-left"
+			],
+			[
+				"b",
+				"background"
+			],
+			[
+				"font",
+				"font-size"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "app.js",
+			"settings":
+			{
+				"buffer_size": 1163,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "package.json",
+			"settings":
+			{
+				"buffer_size": 209,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "README.md",
+			"settings":
+			{
+				"buffer_size": 484,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "public/js/controllers.js",
+			"settings":
+			{
+				"buffer_size": 735,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "routes/api.js",
+			"settings":
+			{
+				"buffer_size": 2273,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "public/js/app.js",
+			"settings":
+			{
+				"buffer_size": 539,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "views/partials/newMaster.jade",
+			"settings":
+			{
+				"buffer_size": 194,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "views/index.jade",
+			"settings":
+			{
+				"buffer_size": 334,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/Lousan92/genealogical-tree/public",
+		"/Users/Lousan92/genealogical-tree/public/js",
+		"/Users/Lousan92/genealogical-tree/routes",
+		"/Users/Lousan92/genealogical-tree/views",
+		"/Users/Lousan92/genealogical-tree/views/partials"
+	],
+	"file_history":
+	[
+		"/Users/Lousan92/genealogical-tree/README.md",
+		"/Users/Lousan92/conceptual-chains/README.md",
+		"/Users/Lousan92/conceptual-chains/package.json",
+		"/Users/Lousan92/Dropbox/WOF/Gajos y diseños/Americana/Ruleta BAV/Panel+Marcadores",
+		"/Users/Lousan92/Dropbox/Universidad/TFG/scripts/app.js",
+		"/Users/Lousan92/Dropbox/Universidad/TFG/index.html",
+		"/Users/Lousan92/Desktop/angular.min.js",
+		"/Users/Lousan92/Documents/Sites/hello-node.js",
+		"/Users/Lousan92/Documents/Sites/HelloWorld/package.json",
+		"/Users/Lousan92/Documents/TFG/miserables.html",
+		"/Users/Lousan92/Documents/TFG/index.html",
+		"/Users/Lousan92/d3_js_network/network.rb",
+		"/Users/Lousan92/d3_js_network/public/working.html",
+		"/Users/Lousan92/d3_js_network/public/network.js",
+		"/Users/Lousan92/linkurious.js/Gruntfile.js",
+		"/Users/Lousan92/linkurious.js/test/unit.camera.js",
+		"/Users/Lousan92/linkurious.js/examples/add-node-on-click.html",
+		"/Users/Lousan92/Documents/TFG/nodes.json",
+		"/Users/Lousan92/Dropbox/Pruebas TFG/serverv2.js",
+		"/Users/Lousan92/Dropbox/Pruebas TFG/express.js",
+		"/Users/Lousan92/Dropbox/Pruebas TFG/serverv1.js",
+		"/Users/Lousan92/Dropbox/Pruebas TFG/bookView.ejs",
+		"/Users/Lousan92/Documents/TFG/node.html",
+		"/Users/Lousan92/Documents/TFG/Pruebas/test.js",
+		"/Users/Lousan92/ANNE-stack/public/vendor/ui-bootstrap-tpls-0.10.0.min.js",
+		"/Users/Lousan92/ANNE-stack/public/vendor/underscore-min.js",
+		"/Users/Lousan92/ANNE-stack/public/vendor/ui-bootstrap-tpls-0.10.0.js",
+		"/Users/Lousan92/ANNE-stack/public/vendor/toastr.min.js",
+		"/Users/Lousan92/ANNE-stack/public/vendor/toastr.js",
+		"/Users/Lousan92/ANNE-stack/public/vendor/spin.min.js",
+		"/Users/Lousan92/ANNE-stack/public/vendor/spin.js",
+		"/Users/Lousan92/ANNE-stack/public/vendor/ng-grid.min.js",
+		"/Users/Lousan92/ANNE-stack/public/vendor/moment.min.js",
+		"/Users/Lousan92/ANNE-stack/public/vendor/ng-grid.js",
+		"/Users/Lousan92/ANNE-stack/public/vendor/moment.js",
+		"/Users/Lousan92/ANNE-stack/public/vendor/moment-with-langs.js",
+		"/Users/Lousan92/ANNE-stack/public/vendor/moment-with-langs.min.js",
+		"/Users/Lousan92/ANNE-stack/public/app/admin/query.html",
+		"/Users/Lousan92/ANNE-stack/public/app/admin/create.html",
+		"/Users/Lousan92/ANNE-stack/public/app/dashboard/dashboard.html",
+		"/Users/Lousan92/ANNE-stack/public/index.html",
+		"/Users/Lousan92/Documents/TFG/app.js",
+		"/Users/Lousan92/Documents/TFG/untitled.js",
+		"/Users/Lousan92/Desktop/result.json",
+		"/Users/Lousan92/Documents/neo4j/conf/neo4j-server.properties",
+		"/Users/Lousan92/Documents/neo4j/conf/neo4j.properties",
+		"/Users/Lousan92/Documents/neo4j/conf/neo4j-http-logging.xml",
+		"/Users/Lousan92/Documents/neo4j/conf/logging.properties",
+		"/Users/Lousan92/Documents/neo4j/conf/windows-wrapper-logging.properties",
+		"/Users/Lousan92/Documents/Tutorial Node.js/ex1.js",
+		"/Users/Lousan92/Documents/TFG/pelis.json",
+		"/Users/Lousan92/Documents/TFG/movie-network.js",
+		"/Users/Lousan92/Documents/TFG/movie-network.css",
+		"/Users/Lousan92/Desktop/gedBrowser/prog/GEDtoJSon.html",
+		"/Users/Lousan92/Documents/TFG/css/modern-business.css",
+		"/Users/Lousan92/Documents/TFG/css/bootstrap.css",
+		"/Users/Lousan92/Documents/TFG/css/bootstrap.min.css",
+		"/Users/Lousan92/Documents/TFG/portfolio-3-col.html",
+		"/Users/Lousan92/Documents/cocasion/Web/movie-network.js",
+		"/Users/Lousan92/Documents/cocasion/Web/index.html",
+		"/Users/Lousan92/Documents/cocasion/Web/navigation.html",
+		"/Users/Lousan92/Documents/cocasion/Web/movie-network.css",
+		"/Users/Lousan92/Documents/cocasion/Web/miserables.json",
+		"/Users/Lousan92/Documents/cocasion/Web/population.csv",
+		"/Users/Lousan92/Dropbox/Universidad/CBDE/Neo4J/lab6.py",
+		"/Users/Lousan92/ged4j/ged4j/res/index.ged",
+		"/Users/Lousan92/Desktop/genealogy-neo4j-web-f9ae315fc9b9a89a883c9865d4a942af97d00eda/app/views/main.scala.html",
+		"/Users/Lousan92/Desktop/index.ged.txt",
+		"/Users/Lousan92/Documents/cocasion/Web/css/bootstrap.css",
+		"/Users/Lousan92/Desktop/SOADDef/mult_basica_mpi.c",
+		"/Users/Lousan92/Dropbox/Universidad/SOAD/MPI/mult_basica_mpi.c",
+		"/Users/Lousan92/Dropbox/Universidad/SOAD/MPI/hw.c",
+		"/Users/Lousan92/Desktop/hw.py",
+		"/Users/Lousan92/Documents/cocasion/Web/ocasion.html",
+		"/Users/Lousan92/Documents/cocasion/Web/portfolio-3-col.html",
+		"/Users/Lousan92/Documents/cocasion/Web/css/bootstrap.min.css",
+		"/Users/Lousan92/Desktop/GroupBy-Selection/Selection/MapReduceSelection.java",
+		"/Users/Lousan92/Desktop/GroupBy-Selection/GroupBy/MapReduceGroupBy.java",
+		"/Users/Lousan92/Documents/cocasion/Web/about.html",
+		"/Users/Lousan92/Documents/cocasion/Web/b.html",
+		"/Users/Lousan92/Documents/cocasion/Web/services.html",
+		"/Users/Lousan92/Documents/cocasion/Web/js/jqBootstrapValidation.js",
+		"/Users/Lousan92/Documents/cocasion/Web/footer.html",
+		"/Users/Lousan92/Documents/cocasion/Web/portfolio-item.html",
+		"/Users/Lousan92/Documents/cocasion/Web/js/bootstrap.js",
+		"/Users/Lousan92/Documents/cocasion/Web/css/modern-business.css",
+		"/Users/Lousan92/Documents/cocasion/Web/js/jquery.js",
+		"/Users/Lousan92/Documents/cocasion/Web/js/bootstrap.min.js",
+		"/Users/Lousan92/Documents/cocasion/Web/faq.html",
+		"/Users/Lousan92/Documents/cocasion/Web/full-width.html",
+		"/Users/Lousan92/Documents/cocasion/Web/pricing.html",
+		"/Users/Lousan92/Downloads/LabZeOS/LAB1/Lab1-codis/ZeOs_v2/io.c",
+		"/Users/Lousan92/Documents/cocasion/Web/contact.html",
+		"/Users/Lousan92/Documents/cocasion/Web/sidebar.html",
+		"/Users/Lousan92/Documents/cocasion/Web/a.html",
+		"/Users/Lousan92/Documents/cocasion/modern-business/js/contact_me.js",
+		"/Users/Lousan92/Documents/cocasion/modern-business/js/jqBootstrapValidation.js",
+		"/Users/Lousan92/Documents/cocasion/modern-business/b.html",
+		"/Users/Lousan92/Documents/cocasion/modern-business/a.html",
+		"/Users/Lousan92/Documents/cocasion/modern-business/contact.html",
+		"/Users/Lousan92/Documents/cocasion/modern-business/blog-post.html",
+		"/Users/Lousan92/Documents/cocasion/modern-business/css/modern-business.css",
+		"/Users/Lousan92/Documents/cocasion/modern-business/css/bootstrap.css",
+		"/Users/Lousan92/Documents/cocasion/modern-business/index.html",
+		"/Users/Lousan92/Documents/cocasion/modern-business/bin/contact_me.php",
+		"/Users/Lousan92/Documents/cocasion/modern-business/js/jquery.js",
+		"/Users/Lousan92/Documents/cocasion/modern-business/js/jquery-1.11.0.js",
+		"/Users/Lousan92/Dropbox/Universidad/SOAD/LabZeOS/ZeOs_versions/ZeOs_v1_completat/entry.S",
+		"/Users/Lousan92/Dropbox/Universidad/SOAD/LabZeOS/ZeOs_versions/ZeOs_v1_completat/utils.c",
+		"/Users/Lousan92/Dropbox/Universidad/SOAD/LabZeOS/ZeOs_versions/ZeOs_v1_completat/user.c",
+		"/Users/Lousan92/Dropbox/Universidad/SOAD/LabZeOS/ZeOs_versions/ZeOs_v1_completat/sys.c",
+		"/Users/Lousan92/Dropbox/Universidad/SOAD/LabZeOS/ZeOs_versions/ZeOs_v1_completat/libc.c",
+		"/Users/Lousan92/Downloads/LabZeOS/ZeOs_versions/ZeOs_v2_completat/interrupt.c",
+		"/Users/Lousan92/Downloads/LabZeOS/ZeOs_versions/ZeOs_v2_completat/sched.c",
+		"/Users/Lousan92/Downloads/LabZeOS/ZeOs_versions/ZeOs_v2_completat/sys.c",
+		"/Users/Lousan92/Downloads/LabZeOS/LAB1/Lab1-codis/ZeOs_v1/libc.c",
+		"/Users/Lousan92/Downloads/LabZeOS/LAB1/Lab1-codis/ZeOs_v1/mm.c",
+		"/Users/Lousan92/Downloads/LabZeOS/LAB1/Lab1-codis/ZeOs_v1/sys.c",
+		"/Users/Lousan92/Downloads/LabZeOS/LAB1/Lab1-codis/ZeOs_v1/include/types.h",
+		"/Users/Lousan92/Downloads/LabZeOS/LAB1/Lab1-codis/ZeOs_v1/include/devices.h"
+	],
+	"find":
+	{
+		"height": 23.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"movie-netw",
+			"json",
+			".json",
+			"help",
+			"log",
+			"db.insertNode",
+			"db.insertnode",
+			"node",
+			"neo4j",
+			"f",
+			"title",
+			"col-md-4",
+			"table",
+			"success",
+			"tr:success",
+			"td:success",
+			"table:sucess",
+			"table",
+			"success",
+			"tab",
+			"panel",
+			"panel_on",
+			"#movieInfo",
+			"movieInfoDiv",
+			"movie",
+			"person",
+			"label",
+			"mouseover",
+			"label",
+			"circle",
+			"node",
+			"size",
+			"@media",
+			"margin-top",
+			"h4",
+			"h3",
+			"h2",
+			"h1",
+			"h4",
+			"panel-heading",
+			"btn-default",
+			"td",
+			"td.success",
+			"td.sucess",
+			"td.header",
+			"td.head",
+			"panel",
+			"panel-header",
+			"td.success",
+			"td.sucess",
+			"table-bordered",
+			"td",
+			"tr-",
+			"table-",
+			"table.",
+			"table",
+			"carro",
+			"carr",
+			"carro",
+			"carr",
+			"ca",
+			"carr",
+			"carro",
+			"carrousel",
+			"carr",
+			"btn",
+			"button",
+			"submit",
+			"button",
+			"favicon",
+			"h4",
+			".panel-heading",
+			".panel-default > .panel-heading",
+			".panel-heading",
+			".panel-default > .panel-heading",
+			"panel-heading",
+			"panel-default",
+			"panel-default > panel-heading",
+			"panel > panel-heading",
+			"panel-heading",
+			"panel-default",
+			"panel-heading",
+			"height",
+			"panel-default",
+			"list-social-icons",
+			"list-unstyled",
+			"facebook",
+			"list-social-icons",
+			"social",
+			":hover",
+			"img:hover",
+			"img",
+			"a",
+			"facebook",
+			"a",
+			"btn-primary",
+			"btn btn-primary",
+			"button",
+			"submit",
+			"primary",
+			"btn btn-primary",
+			"btn-btn primary",
+			"fa-",
+			"p",
+			".p",
+			"btn-primary",
+			"panel-heading",
+			"heading-panel",
+			"btn-primary",
+			"panel-heading",
+			"btn-primary",
+			"panel-heading",
+			"heading",
+			"primary",
+			"btn btn-primary",
+			"btn btn",
+			"btn",
+			"btn btn",
+			"btn-btn",
+			"col-md-",
+			"col-md",
+			"navbar",
+			"footer",
+			"col-lg-1",
+			"col-lg-12",
+			"fill",
+			"container",
+			"0px"
+		],
+		"highlight": false,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": false
+	},
+	"folders":
+	[
+		{
+			"path": "/Users/Lousan92/genealogical-tree/node_modules"
+		},
+		{
+			"path": "/Users/Lousan92/genealogical-tree/public"
+		},
+		{
+			"path": "/Users/Lousan92/genealogical-tree/routes"
+		},
+		{
+			"path": "/Users/Lousan92/genealogical-tree/views"
+		}
+	],
+	"groups":
+	[
+		{
+			"selected": 6,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "app.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1163,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								759,
+								759
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "package.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 209,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "README.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 484,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Markdown/Markdown.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "public/js/controllers.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 735,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								351,
+								351
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "routes/api.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2273,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								666,
+								666
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 446.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "public/js/app.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 539,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								342,
+								346
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "views/partials/newMaster.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 194,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								138,
+								138
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "views/index.jade",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 334,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								227,
+								227
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 151.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

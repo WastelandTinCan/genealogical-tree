@@ -32,9 +32,11 @@ app.get('/', routes.index);
 app.get('/partials/:name', routes.partials);
 
 //NEO4j API
-app.get('/api/master', api.masters);
-app.post('/api/newMaster', api.newMaster);
-app.get('/api/chain/:id', api.chain);
+app.get('/api/person', api.persons);
+app.post('/api/newPerson', api.newPerson);
+app.get('/api/parent/:id', api.parents);
+app.post('/api/newParent/:id', api.newParent);
+app.get('/api/children/:id', api.children);
 app.post('/api/newChild/:id', api.newChild);
 
 http.createServer(app).listen(app.get('port'), function(){
