@@ -12,4 +12,8 @@ To test it:
 
 4) Start the Neo4j server
 
+<<<<<<< Updated upstream
 5) Enjoy it!
+=======
+5) Enjoy it!
+>>>>>>> Stashed changes
