@@ -7,14 +7,26 @@ function IndexCtrl ($scope, $http) {
 	});
 }
 
-function NewPersonCtrl ($scope, $http, $location) {
+function NewMasterCtrl ($scope, $http, $location) {
 	$scope.form = {};
-	$scope.createPerson = function() {
-		$http.post('/api/newPerson', $scope.form).
+	$scope.saveMaster = function() {
+		$http.post('/api/newMaster', $scope.form).
 		success(function (data) {
+      console.log(data);
 			$location.url('/');
 		})
 	}
+}
+
+function DeleteNodeCtrl ($scope, $http, $location, $routeParams, $route) {
+  	$scope.form = {};
+    var id = $routeParams.id;
+  	$scope.deleteNode = function() {
+    	$http.post('/api/deleteNode/'+id, $scope.form).success(
+        function (data) {
+      		$location.url('/');
+    	})
+    }
 }
 
 function ViewNode ($scope, $http, $location, $routeParams, $route) {

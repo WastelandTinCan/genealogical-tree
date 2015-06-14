@@ -1,9 +1,3 @@
-div.row
-	p Nombre
-	input(ng-model='form.name')
-	p Sexo
-	select(ng-model='form.sex')
-		option(value='M') Hombre
-		option(value='F') Mujer
-	p
-	button(ng-click='createPerson()') Crear nueva persona
+label(for='name')
+input(ng-model='form.name')
+button(ng-click='saveMaster()') Save New Master

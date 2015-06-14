@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('myApp', []).
 config(['$routeProvider','$locationProvider', function ($routeProvider, $locationProvider) {
   $routeProvider.
@@ -9,11 +7,15 @@ config(['$routeProvider','$locationProvider', function ($routeProvider, $locatio
     }).
     when('/add', {
       templateUrl: '/partials/newMaster',
-      controller: NewPersonCtrl
+      controller: NewMasterCtrl
     }).
     when('/viewNode/:id', {
       templateUrl: '/partials/viewNode',
       controller: ViewNode
+    }).
+    when('/delete/:id', {
+      templateUrl: '/partials/deletion',
+      controller: DeleteNodeCtrl
     }).
     otherwise({
       redirectTo: '/'
