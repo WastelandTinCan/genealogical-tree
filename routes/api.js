@@ -24,7 +24,19 @@ exports.newPerson = function(req, res) {
                 residCity: req.body.residCity,
                 deathCity: req.body.deathCity}
   console.log(params);
-	db.query('CREATE (p:Person {name: ({name}), surnames: ({surnames}), sex: ({sex}), birthDate: ({birthDate}), deathDate: ({deathDate}), birthCity: ({birthCity}), residCity: ({residCity}), deathCity: ({deathCity}) })', params, function (err) {
+  var query = 'CREATE (p:Person {name: ({name}), surnames: ({surnames}), sex: ({sex}), birthDate: ({birthDate}),';
+  if (params.deathDate) {
+    query += 'deathDate: ({deathDate}),';
+  }
+  query += 'birthCity: ({birthCity}), residCity: ({residCity})'; 
+  if (params.deathCity) {
+    query += ', deathCity: ({deathCity}) })';
+  }
+  else {
+    query += ' })';
+  }
+  console.log(query);
+	db.query(query, params, function (err) {
 		if(err) {
       console.log("Ha salido mal");
       res.json(false); 

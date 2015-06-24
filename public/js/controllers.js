@@ -17,6 +17,7 @@ function NewPersonCtrl ($scope, $http, $location) {
   }
   var messBlock = document.getElementById("alerts");
   var messages = [];
+  var validForm = true;
   messages[0] = document.getElementById("name");
   messages[1] = document.getElementById("surnames");
   messages[2] = document.getElementById("sex");
@@ -27,43 +28,50 @@ function NewPersonCtrl ($scope, $http, $location) {
   hideAll();
 	$scope.createPerson = function() {
     hideAll();
+    validForm = true;
     form = $scope.form;
     if (!form.name) {
       messBlock.style.display = "";
       messages[0].style.display = "";
+      validForm = false;
     }
     if (!form.surnames) {
       messBlock.style.display = "";
       messages[1].style.display = "";
+      validForm = false;
     }
     if (!form.sex) {
       messBlock.style.display = "";
       messages[2].style.display = "";
+      validForm = false;
     }
     if (!form.birthDate) {
       messBlock.style.display = "";
       messages[3].style.display = "";
+      validForm = false;
     }
-    if (form.birthDate > form.deathDate) {
+    if (form.deathDate && (form.birthDate > form.deathDate)) {
       messBlock.style.display = "";
       messages[4].style.display = "";
+      validForm = false;
     }
     if (!form.birthCity) {
       messBlock.style.display = "";
       messages[5].style.display = "";
+      validForm = false;
     }
     if (!form.residCity) {
       messBlock.style.display = "";
       messages[6].style.display = "";
+      validForm = false;
     }
-    console.log("Fechas ="+form.birthDate > form.deathDate);
-    if (form.birthDate > form.deathDate) {
-      console.log("Entro en el IF");
-      //document.getElementById("p1").innerHTML = "Fechas incorrectas";
+    if (validForm) {
+      console.log("¡He llegado!");
+      $http.post('/api/newPerson', $scope.form).success(function (data) {
+        console.log(data);
+        $location.url('/');
+      })
     }
-		else if (form.birthDate < form.deathDate) {
-      console.log("?");
-	 }
   }
 }
 
