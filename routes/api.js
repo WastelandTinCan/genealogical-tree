@@ -2,20 +2,35 @@ var neo = require('neo4j');
 var db = new neo.GraphDatabase('http://localhost:7474');
 
 exports.masters = function(req, res) {
-	db.query('MATCH (n:Master)\nRETURN n', function(err, data) {
+	db.query('MATCH (p:Person)\nRETURN p', function(err, data) {
 		var results = [];
 		forEach(data, function(item) {
-			results.push(item.n._data.data);
+			results.push(item.p._data.data);
 		})
     console.log(results);
 		res.json({data: results});
 	})
-};
+}
 
-exports.newMaster = function(req, res) {
-	var params = {name: req.body.name}
-	db.query('CREATE (n:Master {name: ({name})})', params, function (err) {
-		if(err) { res.json(false) } else {
+/*'CREATE (n:Master {name: ({name}),surnames: ({surnames}),sex: ({sex}),birthDate: ({birthDate}),deathDate: ({deathDate}),birthCity: ({birthCity}),residCity: ({residCity}),deathCity: ({deathCity}) })'*/
+
+exports.newPerson = function(req, res) {
+	var params = {name: req.body.name, 
+                surnames: req.body.surnames,
+                sex: req.body.sex,
+                birthDate: req.body.birthDate,
+                deathDate: req.body.deathDate,
+                birthCity: req.body.birthCity,
+                residCity: req.body.residCity,
+                deathCity: req.body.deathCity}
+  console.log(params);
+	db.query('CREATE (p:Person {name: ({name}), surnames: ({surnames}), sex: ({sex}), birthDate: ({birthDate}), deathDate: ({deathDate}), birthCity: ({birthCity}), residCity: ({residCity}), deathCity: ({deathCity}) })', params, function (err) {
+		if(err) {
+      console.log("Ha salido mal");
+      res.json(false); 
+    }
+    else {
+      console.log("Ha salido bien");
 			res.json(true);
 		}
 	})
@@ -39,7 +54,7 @@ exports.newChild = function(req, res) {
   var params = {name: req.params.id},
       last = {},
       Query,
-      firstChild = 'MATCH (n:Master)\nWHERE n.name = ({name})\nCREATE (n)<-[:CHILD_OF]-(l:Child {name: ({child})})\nRETURN l',
+      firstChild = 'MATCH (p:Master)\nWHERE n.name = ({name})\nCREATE (n)<-[:CHILD_OF]-(l:Child {name: ({child})})\nRETURN l',
       endChild = 'MATCH (n:Child)\nWHERE n.name = ({name})\nCREATE (n)<-[:CHILD_OF]-(l:Child {name: ({child})})\nRETURN l';
 
   db.query('MATCH (n:Master)-[a:CHILD_OF*1..]-(l:Child)\nWHERE n.name = ({name}) AND NOT (l)<-[:CHILD_OF]-()\nRETURN l', params,
@@ -67,8 +82,8 @@ exports.newChild = function(req, res) {
 exports.deleteNode = function(req, res) {
   var params = {name: req.params.id};
   console.log(params);
-  var qMaster = 'MATCH (n {name: ({name}) })\n DELETE n';
-      qMasterChildren = 'MATCH (n { name: ({name}) })-[r]-()\nDELETE n, r';
+  var qPerson = 'MATCH (p:Person {name: ({name}) })\n DELETE p';
+      qPersonChildren = 'MATCH (p:Person { name: ({name}) })-[r]-()\nDELETE p, r';
   var query_func = function (err) {
       if (err) {
         console.log("Error Q2");
@@ -76,9 +91,12 @@ exports.deleteNode = function(req, res) {
       }
         else {res.json(true);}
   };
-  db.query('MATCH (n:Master)-[:CHILD_OF*1..]-(l:Child)\nWHERE n.name = ({name})\nRETURN l', params,
+  db.query('MATCH (p:Person)-[:CHILD_OF*1..]-(l:Child)\nWHERE p.name = ({name})\nRETURN l', params,
     function (err, data) {
-      if (err) {console.log("Error");}
+      if (err) {
+        console.log("Error");
+        console.log(data);
+      }
       else {
         if (data.length == 0) {db.query(qMaster, params, query_func);}
         else {db.query(qMasterChildren, params, query_func);}

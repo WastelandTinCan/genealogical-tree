@@ -6,8 +6,8 @@ config(['$routeProvider','$locationProvider', function ($routeProvider, $locatio
       controller: IndexCtrl
     }).
     when('/add', {
-      templateUrl: '/partials/newMaster',
-      controller: NewMasterCtrl
+      templateUrl: '/partials/newPerson',
+      controller: NewPersonCtrl
     }).
     when('/viewNode/:id', {
       templateUrl: '/partials/viewNode',

@@ -7,7 +7,7 @@ var express = require('express');
 var routes = require('./routes');
 var http = require('http');
 var path = require('path');
-var api = require('./routes/api')
+var api = require('./routes/api');
 
 var app = express();
 
@@ -33,7 +33,7 @@ app.get('/partials/:name', routes.partials);
 
 //NEO4j API
 app.get('/api/master', api.masters);
-app.post('/api/newMaster', api.newMaster);
+app.post('/api/newPerson', api.newPerson);
 app.get('/api/chain/:id', api.chain);
 app.post('/api/newChild/:id', api.newChild);
 app.post('/api/deleteNode/:id', api.deleteNode);
