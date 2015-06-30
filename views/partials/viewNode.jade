@@ -1,9 +1,12 @@
 label(for='name')
-input(ng-model='form.name', name='name')
-button(ng-click='addChild()', class='btn btn-default') New Child
-h2 {{data.master}}
-ul
-  div(ng-repeat='node in data.children')
-    li <strong>{{node.name}}</strong>
-      br
-      span distance from master: {{node.distance}}
+// input(ng-model='form.name', name='name')
+// button(ng-click='addChild()', class='btn btn-default') New Child
+h2 {{data.name}}
+li Nombre: {{data.name}}
+li Apellidos: {{data.surnames}}
+li Sexo: {{data.sex}}
+li Fecha de nacimiento: {{data.birthDate | date: 'dd/MM/yyyy'}}
+li Fecha de defunción: {{data.deathDate | date: 'dd/MM/yyyy'}}
+li Ciudad de nacimiento: {{data.birthCity}}
+li Ciudad de residencia: {{data.residCity}}
+li Ciudad de defunción: {{data.deathCity}}

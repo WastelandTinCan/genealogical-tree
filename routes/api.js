@@ -1,20 +1,19 @@
 var neo = require('neo4j');
 var db = new neo.GraphDatabase('http://localhost:7474');
 
-exports.masters = function(req, res) {
+exports.allPersons = function(req, res) {
 	db.query('MATCH (p:Person)\nRETURN p', function(err, data) {
 		var results = [];
 		forEach(data, function(item) {
-			results.push(item.p._data.data);
+			results.push({id: item.p._data.metadata.id, nodeData: item.p._data.data});
 		})
     console.log(results);
 		res.json({data: results});
 	})
 }
 
-/*'CREATE (n:Master {name: ({name}),surnames: ({surnames}),sex: ({sex}),birthDate: ({birthDate}),deathDate: ({deathDate}),birthCity: ({birthCity}),residCity: ({residCity}),deathCity: ({deathCity}) })'*/
-
 exports.newPerson = function(req, res) {
+  console.log(nextIndex);
 	var params = {name: req.body.name, 
                 surnames: req.body.surnames,
                 sex: req.body.sex,
@@ -35,7 +34,6 @@ exports.newPerson = function(req, res) {
   else {
     query += ' })';
   }
-  console.log(query);
 	db.query(query, params, function (err) {
 		if(err) {
       console.log("Ha salido mal");
@@ -48,17 +46,14 @@ exports.newPerson = function(req, res) {
 	})
 }
 
-exports.chain = function(req, res) {
-  var params = {name: req.params.id},
-  results = [];
-  db.query('MATCH (n:Master)-[:CHILD_OF*1..]-(l:Child)\nWHERE n.name = ({name})\nRETURN l',params, function (err, data) {
-    if(err) { console.log(err); } else {
-      forEach(data, function (item, i) {
-        results.push({name: item.l._data.data.name, distance: i});
-      })
+exports.nodeData = function(req, res) {
+  var results = [];
+  var node = db.getNodeById(req.params.id, function(err, data) {
+      console.log(data._data.data.name);
+      results.push({name: data._data.data.name, surnames: data._data.data.surnames, sex: data._data.data.sex, birthDate: data._data.data.birthDate, deathDate: data._data.data.deathDate, birthCity: data._data.data.birthCity, residCity: data._data.data.residCity, deathCity: data._data.data.deathCity});
       res.json({data: results});
-    }
-  })
+    });
+  console.log("finish");
 }
 
 exports.newChild = function(req, res) {

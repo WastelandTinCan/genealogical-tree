@@ -2,8 +2,12 @@
 /* Controllers */
 
 function IndexCtrl ($scope, $http) {
-	$http.get('/api/master').success(function (data) {
-		$scope.data = data.data;
+	$http.get('/api/allPersons').success(function (data) {
+    $scope.data = [];
+    for (var i = 0; i < data.data.length; ++i) { 
+      $scope.data.push({id: data.data[i].id, nodeData: data.data[i].nodeData}); 
+    }
+    console.log($scope.data);
 	});
 }
 
@@ -11,8 +15,8 @@ function NewPersonCtrl ($scope, $http, $location) {
 	$scope.form = {};
   hideAll = function() {
     messBlock.style.display = "none";
-    for (var x = 0; x < messages.length; ++x) {
-      messages[x].style.display = "none";
+    for (var i = 0; i < messages.length; ++i) {
+      messages[i].style.display = "none";
     }
   }
   var messBlock = document.getElementById("alerts");
@@ -89,9 +93,24 @@ function DeleteNodeCtrl ($scope, $http, $location, $routeParams, $route) {
 function ViewNode ($scope, $http, $location, $routeParams, $route) {
   $scope.form = {};
   var id = $routeParams.id;
-  $http.get('/api/chain/' + id).success(function (data) {
-  	console.log(data);
-    $scope.data = {master: id, children: data.data};
+  console.log(id);
+  $http.get('/api/nodeData/'+id).success(function (data) {
+    console.log(data.data[0].name);
+    var sex_data, deathDate_data, deathCity_data;
+    if (data.data[0].sex == "M") { sex_data = "Hombre"; }
+    else { sex_data = "Mujer"; }
+    if (!data.data[0].deathDate) { deathDate_data = "Aún vivo"; }
+    else { deathDate_data = data.data[0].deathDate; }
+    if (!data.data[0].deathCity) { deathCity_data = "Aún vivo"; }
+    else { deathCity_data = data.data[0].deathCity; }
+    $scope.data = {name: data.data[0].name, 
+                   surnames: data.data[0].surnames, 
+                   sex: sex_data, 
+                   birthDate: data.data[0].birthDate, 
+                   deathDate: deathDate_data,
+                   birthCity: data.data[0].birthCity,
+                   residCity: data.data[0].residCity,
+                   deathCity: deathCity_data };
   });
   $scope.addChild = function() {
     $http.post('/api/newChild/'+id, $scope.form).success(function (data) {

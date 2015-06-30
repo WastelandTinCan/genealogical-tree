@@ -32,9 +32,9 @@ app.get('/', routes.index);
 app.get('/partials/:name', routes.partials);
 
 //NEO4j API
-app.get('/api/master', api.masters);
+app.get('/api/allPersons', api.allPersons);
 app.post('/api/newPerson', api.newPerson);
-app.get('/api/chain/:id', api.chain);
+app.get('/api/nodeData/:id', api.nodeData);
 app.post('/api/newChild/:id', api.newChild);
 app.post('/api/deleteNode/:id', api.deleteNode);
 
