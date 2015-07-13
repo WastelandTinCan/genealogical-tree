@@ -35,6 +35,7 @@ app.get('/partials/:name', routes.partials);
 app.get('/api/allPersons', api.allPersons);
 app.post('/api/newPerson', api.newPerson);
 app.get('/api/nodeData/:id', api.nodeData);
+app.post('/api/editNode/:id', api.editNode);
 app.post('/api/newChild/:id', api.newChild);
 app.post('/api/deleteNode/:id', api.deleteNode);
 

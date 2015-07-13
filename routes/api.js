@@ -4,7 +4,7 @@ var db = new neo.GraphDatabase('http://localhost:7474');
 exports.allPersons = function(req, res) {
 	db.query('MATCH (p:Person)\nRETURN p', function(err, data) {
 		var results = [];
-		forEach(data, function(item) {
+		forEach(data, function (item) {
 			results.push({id: item.p._data.metadata.id, nodeData: item.p._data.data});
 		})
     console.log(results);
@@ -13,7 +13,6 @@ exports.allPersons = function(req, res) {
 }
 
 exports.newPerson = function(req, res) {
-  console.log(nextIndex);
 	var params = {name: req.body.name, 
                 surnames: req.body.surnames,
                 sex: req.body.sex,
@@ -24,18 +23,12 @@ exports.newPerson = function(req, res) {
                 deathCity: req.body.deathCity}
   console.log(params);
   var query = 'CREATE (p:Person {name: ({name}), surnames: ({surnames}), sex: ({sex}), birthDate: ({birthDate}),';
-  if (params.deathDate) {
-    query += 'deathDate: ({deathDate}),';
-  }
-  query += 'birthCity: ({birthCity}), residCity: ({residCity})'; 
-  if (params.deathCity) {
-    query += ', deathCity: ({deathCity}) })';
-  }
-  else {
-    query += ' })';
-  }
+  if (params.deathDate) query += 'deathDate: ({deathDate}),';
+  query += ' birthCity: ({birthCity}), residCity: ({residCity})'; 
+  if (params.deathCity) query += ', deathCity: ({deathCity}) })';
+  else query += ' })';
 	db.query(query, params, function (err) {
-		if(err) {
+		if (err) {
       console.log("Ha salido mal");
       res.json(false); 
     }
@@ -46,9 +39,34 @@ exports.newPerson = function(req, res) {
 	})
 }
 
+exports.editNode = function(req, res) {
+  var intId = parseInt(""+req.params.id);
+  var params = {_id: intId,
+                name: req.body.name, 
+                surnames: req.body.surnames,
+                sex: req.body.sex,
+                birthDate: req.body.birthDate,
+                deathDate: req.body.deathDate,
+                birthCity: req.body.birthCity,
+                residCity: req.body.residCity,
+                deathCity: req.body.deathCity}
+  console.log(params);
+  var query = 'MATCH (p: Person) WHERE id(p) = ({_id}) SET p.name = ({name}), p.surnames = ({surnames}), p.sex = ({sex}), p.birthDate = ({birthDate}), p.deathDate = ({deathDate}), p.birthCity = ({birthCity}), p.residCity = ({residCity}), p.deathCity = ({deathCity})';
+  db.query(query, params, function (err, data) {
+    if (err) {
+      console.log(err);
+      res.json(false);
+    }
+    else { 
+      console.log(data);
+      res.json(data);
+    }
+  });
+}
+
 exports.nodeData = function(req, res) {
   var results = [];
-  var node = db.getNodeById(req.params.id, function(err, data) {
+  db.getNodeById(req.params.id, function (err, data) {
       console.log(data._data.data.name);
       results.push({name: data._data.data.name, surnames: data._data.data.surnames, sex: data._data.data.sex, birthDate: data._data.data.birthDate, deathDate: data._data.data.deathDate, birthCity: data._data.data.birthCity, residCity: data._data.data.residCity, deathCity: data._data.data.deathCity});
       res.json({data: results});
@@ -77,7 +95,7 @@ exports.newChild = function(req, res) {
         params = last;
         Query = endChild;
         }
-        db.query(Query,params, function(err, data) {
+        db.query(Query,params, function (err, data) {
             if(err) {console.log('second query: ' + err);} else {
               res.json(true);
             }
@@ -87,28 +105,29 @@ exports.newChild = function(req, res) {
 }
 
 exports.deleteNode = function(req, res) {
-  var params = {name: req.params.id};
+  var intId = parseInt(""+req.params.id);
+  var params = {_id: intId};
   console.log(params);
-  var qPerson = 'MATCH (p:Person {name: ({name}) })\n DELETE p';
-      qPersonChildren = 'MATCH (p:Person { name: ({name}) })-[r]-()\nDELETE p, r';
+  var deletePerson = 'MATCH (p:Person) WHERE id(p) = ({_id}) DELETE p';
+      deletePersonAndRels = 'MATCH (p:Person)-[r]-() WHERE id(p) = ({_id}) DELETE p, r';
   var query_func = function (err) {
       if (err) {
-        console.log("Error Q2");
+        console.log(err);
         res.json(false);
       }
-        else {res.json(true);}
+      else res.json(true);
   };
-  db.query('MATCH (p:Person)-[:CHILD_OF*1..]-(l:Child)\nWHERE p.name = ({name})\nRETURN l', params,
+  db.query('MATCH (p:Person)-[r]-()\nWHERE id(p) = ({_id})\nRETURN r', params,
     function (err, data) {
-      if (err) {
-        console.log("Error");
-        console.log(data);
+      console.log(err || data);
+      if (!err) {
+        if (data.length > 0) {
+          console.log("¿Entras?");
+          db.query(deletePersonAndRels, params, query_func);
+        }
+        else db.query(deletePerson, params, query_func);
       }
-      else {
-        if (data.length == 0) {db.query(qMaster, params, query_func);}
-        else {db.query(qMasterChildren, params, query_func);}
-      }
-  });
+    });
 }
 
 function forEach(array, fn) {

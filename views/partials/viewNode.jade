@@ -1,12 +1,63 @@
-label(for='name')
-// input(ng-model='form.name', name='name')
-// button(ng-click='addChild()', class='btn btn-default') New Child
-h2 {{data.name}}
-li Nombre: {{data.name}}
-li Apellidos: {{data.surnames}}
-li Sexo: {{data.sex}}
-li Fecha de nacimiento: {{data.birthDate | date: 'dd/MM/yyyy'}}
-li Fecha de defunción: {{data.deathDate | date: 'dd/MM/yyyy'}}
-li Ciudad de nacimiento: {{data.birthCity}}
-li Ciudad de residencia: {{data.residCity}}
-li Ciudad de defunción: {{data.deathCity}}
+form(name='edit-person' class='form-horizontal')
+	div(ng-switch="isEditable()")
+		button(type="link" class="btn btn-link" ng-switch-when="false" ng-click="enableEditForm()") Editar
+		button(type="link" class="btn btn-link" ng-switch-when="true" ng-click="disableEditForm()") Cancelar
+	div(id='alerts' class="alert alert-danger")
+		h4 ERRORES EN LOS PARÁMETROS
+		li(id='name') Nombre no introducido
+		li(id='surnames') Apellidos no introducidos
+		li(id='sex') Sexo no seleccionado
+		li(id='birthDate') Fecha de nacimiento no introducida
+		li(id='dates') La fecha de nacimiento es posterior a la fecha de defunción
+		li(id='birthCity') Ciudad de nacimiento no introducida
+		li(id='residCity') Ciudad de residencia actual no introducida
+	div(class='form-group')
+		label(for="name" class="col-sm-2 control-label") Nombre
+		div(class="col-sm-5")
+			span(id="name_data") {{data.name}}
+			input(id="field_name" type="text" class="form-control" ng-model='data.name' placeholder="Nombre" required)
+	div(class='form-group')
+		label(for="surnames" class="col-sm-2 control-label") Apellidos
+		div(class="col-sm-5")
+			span(id="surnames_data") {{data.surnames}}
+			input(id="field_surnames" type="text" class="form-control" ng-model='data.surnames' placeholder="Apellidos" required)
+	div(class='form-group')
+		label(for="sex" class="col-sm-2 control-label") Sexo
+		div(class="col-sm-2")
+			div(id="sex_data" ng-switch="data.sex")
+				span(ng-switch-when="M") Hombre
+				span(ng-switch-when="F") Mujer
+			select(id="field_sex" class="form-control" ng-model='data.sex' placeholder="Sexo" required)
+				option(value='M') Hombre
+				option(value='F') Mujer
+	div(class='form-group')
+		label(for="birthDate" class="col-sm-2 control-label") Fecha de nacimiento
+		div(class="col-sm-2")
+			span(id="birthDate_data") {{data.birthDate | date: 'dd/MM/yyyy'}}
+			input(id="field_birthDate" type='date' ng-model='data.birthDate' required)
+	div(class='form-group')
+		label(for="deathDate" class="col-sm-2 control-label") Fecha de defunción
+		div(class="col-sm-2")
+			div(id="deathDate_data" ng-switch="isNull(data.deathDate)")
+				span(ng-switch-when="true") En vida
+				span(ng-switch-when="false") {{data.deathDate | date: 'dd/MM/yyyy'}}
+			input(id="field_deathDate" type='date' ng-model='data.deathDate')
+	div(class='form-group')
+		label(for="birthCity" class="col-sm-2 control-label") Ciudad de nacimiento
+		div(class="col-sm-5")
+			span(id="birthCity_data") {{data.birthCity}}
+			input(id="field_birthCity" type="text" class="form-control" ng-model='data.birthCity' placeholder="Ciudad de nacimiento")
+	div(class='form-group')
+		label(for="residCity" class="col-sm-2 control-label" required) Ciudad de residencia
+		div(class="col-sm-5")
+			span(id="residCity_data") {{data.residCity}}
+			input(id="field_residCity" type="text" class="form-control" ng-model='data.residCity' placeholder="Ciudad de residencia")
+	div(class='form-group')
+		label(for="deathCity" class="col-sm-2 control-label") Ciudad de defunción
+		div(class="col-sm-5")
+			div(id="deathCity_data" ng-switch="isNull(data.deathCity)")
+				span(ng-switch-when="true") En vida
+				span(ng-switch-when="false") {{data.deathCity}}
+			input(id="field_deathCity" type='text' class="form-control" ng-model='data.deathCity')
+	div(class='form-group' ng-switch="isEditable()")
+		button(ng-click='editData(data.name, data.surnames, data.sex, data.birthDate, data.deathDate, data.birthCity, data.residCity, data.deathCity)' ng-switch-when="true" class='btn btn-default') Editar datos

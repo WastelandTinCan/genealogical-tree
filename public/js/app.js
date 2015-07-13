@@ -11,11 +11,7 @@ config(['$routeProvider','$locationProvider', function ($routeProvider, $locatio
     }).
     when('/viewNode/:id', {
       templateUrl: '/partials/viewNode',
-      controller: ViewNode
-    }).
-    when('/delete/:id', {
-      templateUrl: '/partials/deletion',
-      controller: DeleteNodeCtrl
+      controller: DisplayNodeCtrl
     }).
     otherwise({
       redirectTo: '/'
