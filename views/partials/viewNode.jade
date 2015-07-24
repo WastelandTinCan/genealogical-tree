@@ -60,4 +60,4 @@ form(name='edit-person' class='form-horizontal')
 				span(ng-switch-when="false") {{data.deathCity}}
 			input(id="field_deathCity" type='text' class="form-control" ng-model='data.deathCity')
 	div(class='form-group' ng-switch="isEditable()")
-		button(ng-click='editData(data.name, data.surnames, data.sex, data.birthDate, data.deathDate, data.birthCity, data.residCity, data.deathCity)' ng-switch-when="true" class='btn btn-default') Editar datos
+		button(ng-click='editData()' ng-switch-when="true" class='btn btn-default') Editar datos

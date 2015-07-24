@@ -1,5 +1,5 @@
-angular.module('myApp', []).
-config(['$routeProvider','$locationProvider', function ($routeProvider, $locationProvider) {
+var myApp = angular.module('myApp', []);
+myApp.config(['$routeProvider','$locationProvider', function ($routeProvider, $locationProvider) {
   $routeProvider.
     when('/', {
       templateUrl: '/partials/index',
@@ -12,6 +12,9 @@ config(['$routeProvider','$locationProvider', function ($routeProvider, $locatio
     when('/viewNode/:id', {
       templateUrl: '/partials/viewNode',
       controller: DisplayNodeCtrl
+    }).
+    when('/upload', {
+      templateUrl: 'partials/upload'
     }).
     otherwise({
       redirectTo: '/'

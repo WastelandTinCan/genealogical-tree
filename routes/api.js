@@ -1,4 +1,5 @@
 var neo = require('neo4j');
+var parser = require('parse-gedcom')
 var db = new neo.GraphDatabase('http://localhost:7474');
 
 exports.allPersons = function(req, res) {
@@ -102,6 +103,10 @@ exports.newChild = function(req, res) {
           })
       }
     })
+}
+
+exports.uploadFile = function(req, res) {
+  console.log("Vuestra puta madre");
 }
 
 exports.deleteNode = function(req, res) {

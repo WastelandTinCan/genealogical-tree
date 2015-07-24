@@ -1,14 +1,12 @@
 
 /* Controllers */
 
-function IndexCtrl ($scope, $http, $location) {
-  console.log("¿Hola?");
+function IndexCtrl($scope, $http, $location) {
 	$http.get('/api/allPersons').success(function (data) {
     $scope.data = [];
     for (var i = 0; i < data.data.length; ++i) { 
       $scope.data.push({id: data.data[i].id, nodeData: data.data[i].nodeData}); 
     }
-    //console.log($scope.data);
 	});
   $scope.deleteNode = function(id) {
     $http.post('/api/deleteNode/'+id).success(function (data) {
@@ -17,17 +15,15 @@ function IndexCtrl ($scope, $http, $location) {
         for (var i = 0; i < data.data.length; ++i) { 
           $scope.data.push({id: data.data[i].id, nodeData: data.data[i].nodeData}); 
         }
-    //console.log($scope.data);
       });
       $location.url('/');
     });
   };
 }
 
-function NewPersonCtrl ($scope, $http, $location) {
+function NewPersonCtrl($scope, $http, $location) {
 	$scope.form = {};
   function hideAll() {
-    messBlock.style.display = "none";
     for (var i = 0; i < messages.length; ++i) {
       messages[i].style.display = "none";
     }
@@ -46,61 +42,49 @@ function NewPersonCtrl ($scope, $http, $location) {
     hideAll();
     var validForm = true;
     if (!$scope.form.name) {
-      messBlock.style.display = "";
+      messages[7].style.display = "";
       messages[0].style.display = "";
       validForm = false;
     }
     if (!$scope.form.surnames) {
-      messBlock.style.display = "";
+      messages[7].style.display = "";
       messages[1].style.display = "";
       validForm = false;
     }
     if (!$scope.form.sex) {
-      messBlock.style.display = "";
+      messages[7].style.display = "";
       messages[2].style.display = "";
       validForm = false;
     }
     if (!$scope.form.birthDate) {
-      messBlock.style.display = "";
+      messages[7].style.display = "";
       messages[3].style.display = "";
       validForm = false;
     }
     if ($scope.form.deathDate && ($scope.form.birthDate > $scope.form.deathDate)) {
-      messBlock.style.display = "";
+      messages[7].style.display = "";
       messages[4].style.display = "";
       validForm = false;
     }
     if (!$scope.form.birthCity) {
-      messBlock.style.display = "";
+      messages[7].style.display = "";
       messages[5].style.display = "";
       validForm = false;
     }
     if (!$scope.form.residCity) {
-      messBlock.style.display = "";
+      messages[7].style.display = "";
       messages[6].style.display = "";
       validForm = false;
     }
     if (validForm) {
-      //console.log("¡He llegado!");
       $http.post('/api/newPerson', $scope.form).success(function (data) {
-        //console.log(data);
         $location.url('/');
       })
     }
   }
 }
 
-/*function DeleteNodeCtrl ($scope, $http, $location, $routeParams, $route) {
-  	$scope.form = {};
-  	$scope.deleteNode = function(id) {
-        console.log(id);
-        $http.post('/api/deleteNode/'+id).success(function (data) {
-      		$location.url('/');
-    	})
-    };
-}*/
-
-function DisplayNodeCtrl ($scope, $http, $location, $routeParams) {
+function DisplayNodeCtrl($scope, $http, $location, $routeParams) {
   $scope.form = {};
   var id = $routeParams.id;
   var temp_data = {name: "name",
