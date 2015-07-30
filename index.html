@@ -1,8 +1,12 @@
 <form id        =  "uploadForm"
-     enctype   =  "multipart/form-data"
-     action    =  "/api/uploadFile"
+     action    =  "/api/upload"
      method    =  "post"
 >
-<input type="file" name="userPhoto" />
-<input type="submit" value="Upload Image" name="submit">
+<input type="file" name="field_file" />
+<input type="submit" name="submit">
 </form>
+
+form(id="uploadForm" action="/api/upload" method="POST")
+	input(name="file_field" type="file")
+	br
+	input(type="submit" name="submit")

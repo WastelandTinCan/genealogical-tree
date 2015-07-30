@@ -105,7 +105,7 @@ exports.newChild = function(req, res) {
     })
 }
 
-exports.uploadFile = function(req, res) {
+exports.upload = function(req, res) {
   console.log("Vuestra puta madre");
 }
 

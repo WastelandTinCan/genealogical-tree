@@ -1,14 +1,16 @@
 {
-  "name": "application-name",
+  "name": "genealogical-tree",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "node app.js"
   },
   "dependencies": {
-    "express": "~4.10.2",
-    "multer": "~0.1.6",
+    "connect": "^3.4.0",
+    "express": "3.4.7",
+    "fs": "*",
     "jade": "*",
+    "multer": "^0.1.8",
     "neo4j": "~1.1.0",
     "parse-gedcom": "^1.0.3"
   }

@@ -58,6 +58,6 @@ form(name='edit-person' class='form-horizontal')
 			div(id="deathCity_data" ng-switch="isNull(data.deathCity)")
 				span(ng-switch-when="true") En vida
 				span(ng-switch-when="false") {{data.deathCity}}
-			input(id="field_deathCity" type='text' class="form-control" ng-model='data.deathCity')
+			input(id="field_deathCity" type='text' class="form-control" ng-model='data.deathCity' placeholder="Ciudad de defunción")
 	div(class='form-group' ng-switch="isEditable()")
 		button(ng-click='editData()' ng-switch-when="true" class='btn btn-default') Editar datos
