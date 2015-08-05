@@ -9,7 +9,7 @@ var multer = require('multer');
 var http = require('http');
 var path = require('path');
 var api = require('./routes/api');
-var fs = require('fs');
+var gj = require('parse-gedcom');
 var done = false;
 var app = express();
 // all environments
@@ -54,17 +54,7 @@ app.get('/api/nodeData/:id', api.nodeData);
 app.post('/api/editNode/:id', api.editNode);
 app.post('/api/newChild/:id', api.newChild);
 app.post('/api/deleteNode/:id', api.deleteNode);
-app.post('/api/upload', function (req, res) {
-  if (done == true) {
-    var filePath = req.files.gedcom_file.path;
-    console.log(filePath);
-    res.end("Archivo subido correctamente.");
-    fs.readFile(filePath, 'utf8', function (err, data) {
-      if (err) return console.log(err);
-      return console.log(data);
-    });
-  }
-});
+//app.post('/api/upload', api.upload);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

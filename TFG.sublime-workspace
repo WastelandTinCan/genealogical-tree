@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"birth",
+				"birthCity"
+			],
+			[
+				"deleet",
+				"deleteLineEnds"
+			],
+			[
+				"month",
+				"monthParsingFuck"
+			],
+			[
+				"indivi",
+				"individualFound"
+			],
+			[
+				"file",
+				"fileSplit"
+			],
+			[
 				"s",
 				"script"
 			],
@@ -78,10 +98,6 @@
 			[
 				"dea",
 				"deathDate_data"
-			],
-			[
-				"birth",
-				"birthDate"
 			],
 			[
 				"mess",
@@ -179,7 +195,7 @@
 			"file": "app.js",
 			"settings":
 			{
-				"buffer_size": 1719,
+				"buffer_size": 1642,
 				"line_ending": "Unix"
 			}
 		},
@@ -187,23 +203,7 @@
 			"file": "routes/api.js",
 			"settings":
 			{
-				"buffer_size": 4942,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "index.html",
-			"settings":
-			{
-				"buffer_size": 310,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "public/js/app.js",
-			"settings":
-			{
-				"buffer_size": 616,
+				"buffer_size": 11466,
 				"line_ending": "Unix"
 			}
 		},
@@ -216,50 +216,35 @@
 			}
 		},
 		{
-			"file": "views/index.jade",
+			"file": "test.ged",
 			"settings":
 			{
-				"buffer_size": 536,
+				"buffer_size": 68427,
+				"line_ending": "Unix",
+				"name": "0 HEAD"
+			}
+		},
+		{
+			"file": "aleman.ged",
+			"settings":
+			{
+				"buffer_size": 46139,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "indi2.ged",
+			"settings":
+			{
+				"buffer_size": 404,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "views/partials/upload.jade",
+			"file": "views/partials/index.jade",
 			"settings":
 			{
-				"buffer_size": 188,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "upload-test.jade",
-			"settings":
-			{
-				"buffer_size": 628,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "package.json",
-			"settings":
-			{
-				"buffer_size": 289,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "views/partials/newPerson.jade",
-			"settings":
-			{
-				"buffer_size": 2292,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "views/partials/viewNode.jade",
-			"settings":
-			{
-				"buffer_size": 3432,
+				"buffer_size": 213,
 				"line_ending": "Unix"
 			}
 		}
@@ -301,34 +286,37 @@
 	},
 	"expanded_folders":
 	[
-		"/Users/Lousan92/genealogical-tree/node_modules",
 		"/Users/Lousan92/genealogical-tree/public",
+		"/Users/Lousan92/genealogical-tree/public/js",
 		"/Users/Lousan92/genealogical-tree/routes",
 		"/Users/Lousan92/genealogical-tree/views",
 		"/Users/Lousan92/genealogical-tree/views/partials"
 	],
 	"file_history":
 	[
-		"/Users/Lousan92/genealogical-tree/package.json",
 		"/Users/Lousan92/genealogical-tree/routes/api.js",
+		"/Users/Lousan92/gedcom-tree/test/TGC55C.ged",
+		"/Users/Lousan92/genealogical-tree/indi2.ged",
+		"/Users/Lousan92/genealogical-tree/app.js",
+		"/Users/Lousan92/genealogical-tree/public/js/app.js",
+		"/Users/Lousan92/genealogical-tree/public/js/controllers.js",
+		"/Users/Lousan92/genealogical-tree/views/index.jade",
 		"/Users/Lousan92/genealogical-tree/views/partials/viewNode.jade",
-		"/Users/Lousan92/genealogical-tree/index.html",
+		"/Users/Lousan92/genealogical-tree/views/partials/newPerson.jade",
 		"/Users/Lousan92/genealogical-tree/views/partials/upload.jade",
+		"/Users/Lousan92/genealogical-tree/package.json",
+		"/Users/Lousan92/genealogical-tree/upload-test.jade",
+		"/Users/Lousan92/genealogical-tree/index.html",
 		"/Users/Lousan92/genealogical-tree/views/layout.jade",
 		"/Users/Lousan92/upload-test/index.html",
 		"/Users/Lousan92/upload-test/app.js",
 		"/Users/Lousan92/upload-test/package.json",
-		"/Users/Lousan92/genealogical-tree/public/js/controllers.js",
 		"/Users/Lousan92/genealogical-tree/public/js/controllers-upload.js",
 		"/Users/Lousan92/genealogical-tree/README.md",
 		"/Users/Lousan92/Documents/angular_test/app.js",
 		"/Users/Lousan92/Documents/angular_test/index.html",
-		"/Users/Lousan92/genealogical-tree/views/index.jade",
-		"/Users/Lousan92/genealogical-tree/app.js",
 		"/Users/Lousan92/genealogical-tree/public/js/fileinput/fileinput.js",
-		"/Users/Lousan92/genealogical-tree/public/js/app.js",
 		"/Users/Lousan92/genealogical-tree/views/partials/index.jade",
-		"/Users/Lousan92/genealogical-tree/views/partials/newPerson.jade",
 		"/Users/Lousan92/genealogical-tree/routes/index.js",
 		"/Users/Lousan92/genealogical-tree/views/partials/deletion.jade",
 		"/Users/Lousan92/conceptual-chains/routes/api.js",
@@ -433,14 +421,11 @@
 		"/Users/Lousan92/Documents/cocasion/modern-business/a.html",
 		"/Users/Lousan92/Documents/cocasion/modern-business/contact.html",
 		"/Users/Lousan92/Documents/cocasion/modern-business/blog-post.html",
-		"/Users/Lousan92/Documents/cocasion/modern-business/css/modern-business.css",
-		"/Users/Lousan92/Documents/cocasion/modern-business/css/bootstrap.css",
-		"/Users/Lousan92/Documents/cocasion/modern-business/index.html",
-		"/Users/Lousan92/Documents/cocasion/modern-business/bin/contact_me.php"
+		"/Users/Lousan92/Documents/cocasion/modern-business/css/modern-business.css"
 	],
 	"find":
 	{
-		"height": 23.0
+		"height": 35.0
 	},
 	"find_in_files":
 	{
@@ -454,6 +439,14 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"RESI",
+			"strDate",
+			"Eleonore",
+			"Klose",
+			"Kloose",
+			"FAM",
+			"\\n",
+			"This record has a second marriage for \"Joseph Tag Torture\"",
 			"controllers.js",
 			"fileinput",
 			"fileInput",
@@ -573,15 +566,7 @@
 			"panel-heading",
 			"heading-panel",
 			"btn-primary",
-			"panel-heading",
-			"btn-primary",
-			"panel-heading",
-			"heading",
-			"primary",
-			"btn btn-primary",
-			"btn btn",
-			"btn",
-			"btn btn"
+			"panel-heading"
 		],
 		"highlight": false,
 		"in_selection": false,
@@ -600,7 +585,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 4,
 			"sheets":
 			[
 				{
@@ -609,133 +594,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1719,
+						"buffer_size": 1642,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								395,
-								395
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "routes/api.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4942,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1521,
-								1521
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 320.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "index.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 310,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								89,
-								89
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "public/js/app.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 616,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								523,
-								523
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "public/js/controllers.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8639,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1837,
-								1837
+								0,
+								0
 							]
 						],
 						"settings":
@@ -752,50 +619,165 @@
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "views/index.jade",
+					"buffer": 1,
+					"file": "routes/api.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 536,
+						"buffer_size": 11466,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								536,
-								536
+								4308,
+								4308
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1577.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "public/js/controllers.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8639,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								745,
+								745
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3071.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "test.ged",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 68427,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								22326,
+								22330
+							]
+						],
+						"settings":
+						{
+							"auto_name": "0 HEAD",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 12218.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
-					"file": "views/partials/upload.jade",
+					"buffer": 4,
+					"file": "aleman.ged",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 188,
+						"buffer_size": 46139,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								7,
-								7
+								36340,
+								36344
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 34921.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "indi2.ged",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 404,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								271,
+								276
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "views/partials/index.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 213,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
 							]
 						],
 						"settings":
@@ -806,125 +788,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "upload-test.jade",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 628,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								222,
-								222
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "package.json",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 289,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								187,
-								187
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JSON.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
 					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "views/partials/newPerson.jade",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2292,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1489,
-								1489
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 10,
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "views/partials/viewNode.jade",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3432,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2406,
-								2406
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
 					"type": "text"
 				}
 			]
@@ -1011,7 +875,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 151.0,
+	"side_bar_width": 180.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
