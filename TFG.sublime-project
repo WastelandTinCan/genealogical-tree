@@ -2,6 +2,9 @@
 	"folders":
 	[
 		{
+			"path": "json_files"
+		},
+		{
 			"path": "node_modules"
 		},
 		{

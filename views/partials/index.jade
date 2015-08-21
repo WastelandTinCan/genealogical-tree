@@ -1,7 +1,7 @@
 h2 Personas
 h3 Probando el parseado de archivos
-div(ng-repeat='node in data')
+div(ng-repeat="node in data")
   h3 {{node.nodeData.name}}
-  a(ng-href='/viewNode/{{node.id}}') Ver
+  a(ng-href="/viewNode/{{node.id}}") Ver
   |  |     
-  a(ng-href='/' ng-click='deleteNode(node.id)') Borrar
+  a(ng-href="/" ng-click="deleteNode(node.id)") Borrar

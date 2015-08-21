@@ -1,192 +1,20 @@
-var neo = require('neo4j');
-var parser = require('parse-gedcom');
-var fs = require('fs');
-var path = require('path');
-var db = new neo.GraphDatabase('http://localhost:7474');
+var neo = require("neo4j");
+var parser = require("parse-gedcom");
+var fs = require("fs");
+var path = require("path");
+var sync = require("synchronize");
+var db = new neo.GraphDatabase("http://localhost:7474");
+
+sync(db, "query");
 
 exports.allPersons = function(req, res) {
-	db.query('MATCH (p:Person)\nRETURN p', function(err, data) {
+	db.query("MATCH (p:Person) RETURN p", function (err, data) {
 		var results = [];
 		forEach(data, function (item) {
 			results.push({id: item.p._data.metadata.id, nodeData: item.p._data.data});
 		})
-    //console.log(results);
 		res.json({data: results});
 	})
-  var file = fs.readFileSync("/Users/Lousan92/genealogical-tree/aleman.ged", "utf8");  
-  //var file = fs.readFileSync("/Users/Lousan92/genealogical-tree/indi2.ged", "utf8");
-  var fileSplit = file.split('\n');
-  //console.log(fileSplit.length);
-  var persons = [];
-  var families = [];
-  var isIndividual = false;
-  var isFamily = false;
-  var isName = false;
-  var isBirth = false;
-  var isDeath = false;
-  var isMarriage = false;
-  var data = {};
-  for (var i = 0; i < fileSplit.length; ++i) {
-    //console.log(fileSplit.length);
-    //console.log("Línea "+i+" isBirth = "+isBirth);
-    var line = fileSplit[i].split(' ');
-    line = deleteEndlines(line);
-    if (isIndividual) {
-      if (isName) {
-        if (line[1] == "GIVN") {
-          data.name = line[2];
-          //console.log("Nombre: "+line[2]);
-        }
-        if (line[1] == "SURN") {
-          data.surnames = line[2];
-          //console.log("Apellidos: "+line[2]);
-        }
-        isName = !(fileSplit[i+1].split(' ')[0] == "1");
-      }
-      if (isBirth) {
-        //console.log("Hola");
-        if (line[1] == "DATE") {
-          var date = "";
-          if (line.length == 5) date = parseDate(line[2], line[3], line[4]);
-          else {
-            for (var j = 2; j < line.length; ++j) date += line[j];
-          }
-          data.birthDate = date;
-          //console.log("Fecha de nacimiento: "+date);
-        }
-        if (line[1] == "PLAC") {
-          var birthCity = "";
-          for (var j = 2; j < line.length; ++j) birthCity += line[j];
-          data.birthCity = birthCity;
-          //console.log("Lugar de nacimiento: "+birthCity);
-        }
-        isBirth = !(fileSplit[i+1].split(' ')[0] == "1");
-      }
-      if (isDeath) {
-        if (line[1] == "DATE") {
-          var date = "";
-          if (line.length == 5) date = parseDate(line[2], line[3], line[4]);
-          else {
-            for (var j = 2; j < line.length; ++j) date += line[j];
-          }
-          data.deathDate = date;
-          //console.log("Fecha de defunción: "+date);
-        }
-        if (line[1] == "PLAC") {
-          var deathCity = "";
-          for (var j = 2; j < line.length; ++j) birthCity += line[j];
-          data.deathCity = deathCity;
-          //console.log("Lugar de defunción: "+birthCity);
-        }
-        isDeath = !(fileSplit[i+1].split(' ')[0] == "1");
-      }
-      else {
-        //console.log(line[1]);
-        switch (line[1]) {
-          case "NAME": 
-            //console.log("NAME");
-            isName = true;
-            break;
-          case "SEX": 
-            //console.log("SEX");
-            //console.log("Sexo: "+line[2]);
-            data.sex = line[2];
-            break;
-          case "BIRT":
-            //console.log("BIRT");
-            isBirth = true;
-            break;
-          case "BIRTH":
-            //console.log("BIRTH");
-            isBirth = true;
-            break;
-          case "DEAT":
-            //console.log("DEAT");
-            isDeath = true;
-            break;
-          case "DEATH":
-            //console.log("DEATH");
-            isDeath = true;
-            break;
-        }
-      }
-    }
-    if (isFamily) {
-      if (isMarriage) {
-        if (line[1] == "DATE") {
-          var date = "";
-          if (line.length == 5) date = parseDate(line[2], line[3], line[4]);
-          else {
-            for (var j = 2; j < line.length; ++j) date += line[j];
-          }
-          data.marriageDate = date;
-        }
-        if (line[1] == "PLAC") {
-          var marriagePlace = "";
-          for (var j = 2; j < line.length; ++j) marriagePlace += line[j];
-          data.marriagePlace = marriagePlace;
-        }
-      }
-      else {
-        switch (line[1]) {
-          case "HUSB":
-            data.husband = line[2];
-            break;
-          case "WIFE":
-            data.wife = line[2];
-            break;
-          case "CHIL":
-            data.children.push(line[2]);
-            break;
-          case "MARR":
-            isMarriage = true;
-        }
-      }
-    }
-    if (i+1 < fileSplit.length) {
-      isIndividual = !(fileSplit[i+1].split(' ')[0] == "0");
-      if (!isIndividual) {
-        if (objectLength(individual) > 0) {
-          if (persons.push(individual));
-          individual = {};
-        }
-        //console.log("--------------------------");
-      }
-      //else if (line.length > 0) family.push(individual);
-    else {
-      if (line[0] == "0" && line[1][0] == "@" && line[1][1] == "I") {
-        individual._id = line[1];
-        isIndividual = true;
-        //console.log(line[1]);
-      }
-      if (line[0] == "0" && line[1][0] == "@" && line[1][1] == "F") {
-        relationships._id = line[1];
-        isFamily = true;
-        //console.log(line[1]);
-      }
-    }
-  }
-}
-//var query = 'CREATE (p:Person {_id: ({_id}), name: ({name}), surnames: ({surnames}), sex: ({sex}), birthDate: ({birthDate}), deathDate: ({deathDate}), birthCity: ({birthCity}), deathCity: ({deathCity})})';
-  for (var i = 0; i < persons.length; ++i) {
-    var query = "CREATE (p:Person {";
-    //console.log(family[i]);
-    if (persons[i]._id) query += "_id: ({_id}), ";
-    if (persons[i].name) query += "name: ({name}), ";
-    if (persons[i].surnames) query += "surnames: ({surnames}), ";
-    if (persons[i].sex) query += "sex: ({sex}), ";
-    if (persons[i].birthDate) query += "birthDate: ({birthDate}), ";
-    if (persons[i].deathDate) query += "deathDate: ({deathDate}), ";
-    if (persons[i].birthCity) query += "birthCity: ({birthCity}), ";
-    if (persons[i].deathCity) query += "deathCity: ({deathCity})";
-    if (query[query.length-2] == ",") query = query.substring(0, query.length-2);
-    query += " })";
-    console.log(query);
-    /*db.query(query, family[i], function (err) {
-      if (err) console.log(err);
-      else ("¡Bien!");
-    });*/
-  }
 }
 
 exports.newPerson = function(req, res) {
@@ -195,15 +23,15 @@ exports.newPerson = function(req, res) {
                 sex: req.body.sex,
                 birthDate: req.body.birthDate,
                 deathDate: req.body.deathDate,
-                birthCity: req.body.birthCity,
-                residCity: req.body.residCity,
-                deathCity: req.body.deathCity}
+                birthPlace: req.body.birthPlace,
+                residPlace: req.body.residPlace,
+                deathPlace: req.body.deathPlace}
   console.log(params);
-  var query = 'CREATE (p:Person {name: ({name}), surnames: ({surnames}), sex: ({sex}), birthDate: ({birthDate}),';
-  if (params.deathDate) query += 'deathDate: ({deathDate}),';
-  query += ' birthCity: ({birthCity}), residCity: ({residCity})'; 
-  if (params.deathCity) query += ', deathCity: ({deathCity}) })';
-  else query += ' })';
+  var query = "CREATE (p:Person {name: ({name}), surnames: ({surnames}), sex: ({sex}), birthDate: ({birthDate}),";
+  if (params.deathDate) query += "deathDate: ({deathDate}),";
+  query += " birthPlace: ({birthPlace}), residPlace: ({residPlace})"; 
+  if (params.deathPlace) query += ", deathPlace: ({deathPlace}) })";
+  else query += " })";
 	db.query(query, params, function (err) {
 		if (err) {
       res.json(false); 
@@ -222,11 +50,11 @@ exports.editNode = function(req, res) {
                 sex: req.body.sex,
                 birthDate: req.body.birthDate,
                 deathDate: req.body.deathDate,
-                birthCity: req.body.birthCity,
-                residCity: req.body.residCity,
-                deathCity: req.body.deathCity}
+                birthPlace: req.body.birthPlace,
+                residPlace: req.body.residPlace,
+                deathPlace: req.body.deathPlace}
   console.log(params);
-  var query = 'MATCH (p: Person) WHERE id(p) = ({_id}) SET p.name = ({name}), p.surnames = ({surnames}), p.sex = ({sex}), p.birthDate = ({birthDate}), p.deathDate = ({deathDate}), p.birthCity = ({birthCity}), p.residCity = ({residCity}), p.deathCity = ({deathCity})';
+  var query = "MATCH (p:Person) WHERE id(p) = ({_id}) SET p.name = ({name}), p.surnames = ({surnames}), p.sex = ({sex}), p.birthDate = ({birthDate}), p.deathDate = ({deathDate}), p.birthPlace = ({birthPlace}), p.residPlace = ({residPlace}), p.deathPlace = ({deathPlace})";
   db.query(query, params, function (err, data) {
     if (err) {
       console.log(err);
@@ -243,88 +71,312 @@ exports.nodeData = function(req, res) {
   var results = [];
   db.getNodeById(req.params.id, function (err, data) {
       console.log(data._data.data.name);
-      results.push({name: data._data.data.name, surnames: data._data.data.surnames, sex: data._data.data.sex, birthDate: data._data.data.birthDate, deathDate: data._data.data.deathDate, birthCity: data._data.data.birthCity, residCity: data._data.data.residCity, deathCity: data._data.data.deathCity});
+      results.push({name: data._data.data.name, surnames: data._data.data.surnames, sex: data._data.data.sex, birthDate: data._data.data.birthDate, deathDate: data._data.data.deathDate, birthPlace: data._data.data.birthPlace, residPlace: data._data.data.residPlace, deathPlace: data._data.data.deathPlace});
       res.json({data: results});
-    });
+  });
 }
 
-exports.newChild = function(req, res) {
-  console.log(req.body);
-  var params = {name: req.params.id},
-      last = {},
-      Query,
-      firstChild = 'MATCH (p:Master)\nWHERE n.name = ({name})\nCREATE (n)<-[:CHILD_OF]-(l:Child {name: ({child})})\nRETURN l',
-      endChild = 'MATCH (n:Child)\nWHERE n.name = ({name})\nCREATE (n)<-[:CHILD_OF]-(l:Child {name: ({child})})\nRETURN l';
-
-  db.query('MATCH (n:Master)-[a:CHILD_OF*1..]-(l:Child)\nWHERE n.name = ({name}) AND NOT (l)<-[:CHILD_OF]-()\nRETURN l', params,
-    function (err, data) {
-      if(err) { console.log(err); } else {
-        console.log(data);
-        if(data.length < 1) {
-          Query = firstChild;
-          params.child = req.body.name;
-        } else {
-        last.name = data[0].l._data.data.name; //name of terminal child
-        last.child = req.body.name; //name of new child
-        params = last;
-        Query = endChild;
-        }
-        db.query(Query,params, function (err, data) {
-            if(err) {console.log('second query: ' + err);} else {
-              res.json(true);
-            }
-          })
-      }
-    })
-}
-
-/*exports.upload = function(req, res) {
+exports.uploadAndParse = function(req, res) {
   var fileData = req.files.gedcom_file;
   var file = fs.readFileSync(fileData.path, "utf8");
   var fileSplit = file.split('\n');
-  var family = {};
+  var persons = [];
+  var families = [];
+  var children = [];
+  var residence = [];
   var isIndividual = false;
+  var isFamily = false;
   var isName = false;
   var isBirth = false;
-  var individual = {};
+  var isDeath = false;
+  var isResidence = false;
+  var isMarriage = false;
+  var data = {};
+  var dataResidence = {};
   for (var i = 0; i < fileSplit.length; ++i) {
     var line = fileSplit[i].split(' ');
-    if (line.length == 1 && line[0] == "") {
-      isIndividual = false;
-      family.push(individual);
-      individual = {};
-    }
-    if (isName) {
-
-    }
-    else if (isBirth) {
-      if (line[1] == "DATE") {
-
-        
-      individual.birthDate = parseDate(line[2], line[3], line[4]);
-    }
+    line = deleteEndlines(line);
     if (isIndividual) {
-      if (line[1] == "NAME") isName = true;
-      if (line[1] == "SEX") individual.sex = line[2];
-      if (line[1] == "BIRTH") isBirth = true;
+      if (isName) {
+        if (line[1] == "GIVN") {
+          var given = "";
+          for (var j = 2; j < line.length; ++j) {
+            given += line[j];
+            if (j+1 < line.length) given += " ";
+          } 
+          data.name = given;
+        }
+        if (line[1] == "SURN") {
+          var surnames = ""
+          for (var j = 2; j < line.length; ++j) {
+            surnames += line[j];
+            if (j+1 < line.length) surnames += " ";
+          }
+          data.surnames = surnames;
+        }
+        isName = !(fileSplit[i+1].split(' ')[0] == "1");
+      }
+      if (isBirth) {
+        if (line[1] == "DATE") {
+          var date = "";
+          if (line.length == 5) date = parseDate(line[2], line[3], line[4]);
+          else {
+            for (var j = 2; j < line.length; ++j) date += line[j];
+          }
+          data.birthDate = date;
+        }
+        if (line[1] == "PLAC") {
+          var birthPlace = "";
+          for (var j = 2; j < line.length; ++j) {
+            birthPlace += line[j];
+            if (j+1 < line.length) birthPlace += " ";
+          }
+          data.birthPlace = birthPlace;
+          //console.log("Lugar de nacimiento: "+birthPlace);
+        }
+        isBirth = !(fileSplit[i+1].split(' ')[0] == "1");
+      }
+      if (isDeath) {
+        if (line[1] == "DATE") {
+          var date = "";
+          if (line.length == 5) date = parseDate(line[2], line[3], line[4]);
+          else {
+            for (var j = 2; j < line.length; ++j) date += line[j];
+          }
+          data.deathDate = date;
+          //console.log("Fecha de defunción: "+date);
+        }
+        if (line[1] == "PLAC") {
+          var deathPlace = "";
+          for (var j = 2; j < line.length; ++j) {
+            deathPlace += line[j];
+            if (j+1 < line.length) deathPlace += " ";
+          }
+          data.deathPlace = deathPlace;
+          //console.log("Lugar de defunción: "+deathPlace);
+        }
+        isDeath = !(fileSplit[i+1].split(' ')[0] == "1");
+      }
+      if (isResidence) {
+        if (line[1] == "DATE") {
+          var date = "";
+          if (line.length == 5) date = parseDate(line[2], line[3], line[4]);
+          else {
+            for (var j = 2; j < line.length; ++j) date += line[j];
+          }
+          //console.log("Fecha de residencia: "+date);
+          dataResidence.residDate = date;
+        }
+        if (line[1] == "PLAC") {
+          var residPlace = "";
+          for (var j = 2; j < line.length; ++j) {
+            residPlace += line[j];
+            if (j+1 < line.length) residPlace += " ";
+          }
+          dataResidence.residPlace = residPlace;
+          //console.log("Lugar de residencia: "+residPlace);
+        }
+        isResidence = !(fileSplit[i+1].split(' ')[0] == "1");
+        if (!isResidence) {
+          if (!data.residence) data.residence = [];
+          data.residence.push(dataResidence);
+          dataResidence = {};
+          //console.log(data.residence);
+        }
+      }
+      else {
+        switch (line[1]) {
+          case "NAME": 
+            if (fileSplit[i+1].split(' ')[0] == "1") {
+              var name = "";
+              for (var j = 2; j < line.length; ++j) {
+                name += line[j];
+                if (j+1 < line.length) name += " ";
+              }
+              data.name = name.replace(/[/]/g, "");
+            }
+            else isName = true;
+            break;
+          case "SEX":
+            data.sex = line[2];
+            break;
+          case "BIRT":
+            isBirth = true;
+            break;
+          case "BIRTH":
+            isBirth = true;
+            break;
+          case "DEAT":
+            isDeath = true;
+            break;
+          case "DEATH":
+            isDeath = true;
+            break;
+          case "RESI":
+            isResidence = true;
+            break;
+        }
+      }
     }
-    if (line[0] == "0" && line[1][0] == "@" && line[1][1] == "I") {
-      isIndividual = true;
-    } 
-    /*if (fileSplit[i][0] == "0" && fileSplit[i][2] == "@" && fileSplit[i][3] == "I") {
-      console.log("¡Un individuo salvaje!");
-      individualFound = true;
+    if (isFamily) {
+      if (isMarriage) {
+        if (line[1] == "DATE") {
+          var date = "";
+          if (line.length == 5) date = parseDate(line[2], line[3], line[4]);
+          else {
+            for (var j = 2; j < line.length; ++j) date += line[j];
+          }
+          data.marriageDate = date;
+        }
+        if (line[1] == "PLAC") {
+          var marriagePlace = "";
+          for (var j = 2; j < line.length; ++j) {
+            marriagePlace += line[j];
+            if (j+1 < line.length) marriagePlace += " ";
+          }
+          data.marriagePlace = marriagePlace;
+        }
+        isMarriage = !(fileSplit[i+1].split(' ')[0] == "1");
+      }
+      else {
+        switch (line[1]) {
+          case "HUSB":
+            data.husband = line[2];
+            break;
+          case "WIFE":
+            data.wife = line[2];
+            break;
+          case "CHIL":
+            children.push(line[2]);
+            break;
+          case "MARR":
+            isMarriage = true;
+            break;
+        }
+      }
     }
-    if (individualfileSplit[i])
+    if (i+1 < fileSplit.length) {
+      if (isIndividual) {
+        isIndividual = !(fileSplit[i+1].split(' ')[0] == "0");
+        if (!isIndividual) {
+          if (objectLength(data) > 0) {
+            persons.push(data);
+            data = {};
+          }
+        }  
+      }
+      if (isFamily) {
+        isFamily = !(fileSplit[i+1].split(' ')[0] == "0");
+        if (!isFamily) {
+          if (objectLength(data) > 0) {
+            data.children = children;
+            families.push(data);
+            children = [];
+            data = {};
+          }
+        }  
+      }
+      else {
+        if (line[0] == "0" && line[1][0] == "@" && line[1][1] == "I") {
+          data._id = line[1];
+          isIndividual = true;
+        }
+        if (line[0] == "0" && line[1][0] == "@" && line[1][1] == "F") {
+          data._id = line[1];
+          isFamily = true;
+        }
+      }
+    }
+    else if (i+1 == fileSplit.length) {
+      if (isIndividual) {
+        if (objectLength(data) > 0) {
+          persons.push(data);
+          data = {};
+        }
+      }
+      if (isFamily) {
+        if (objectLength(data) > 0) {
+          data.children = children;
+          families.push(data);
+          children = [];
+          data = {};
+        } 
+      }
+    }
   }
-}*/
+  console.log(persons);
+  sync.fiber(function() {
+    for (var i = 0; i < persons.length; ++i) {
+      var query = "CREATE (p:Person {";
+      if (persons[i]._id) query += "_id: ({_id}), ";
+      if (persons[i].name) query += "name: ({name}), ";
+      if (persons[i].surnames) query += "surnames: ({surnames}), ";
+      if (persons[i].sex) query += "sex: ({sex}), ";
+      if (persons[i].birthDate) query += "birthDate: ({birthDate}), ";
+      if (persons[i].deathDate) query += "deathDate: ({deathDate}), ";
+      if (persons[i].birthPlace) query += "birthPlace: ({birthPlace}), ";
+      if (persons[i].deathPlace) query += "deathPlace: ({deathPlace})";
+      if (query[query.length-2] == ",") query = query.substring(0, query.length-2);
+      query += " })";
+      db.query(query, persons[i], function (err) {
+        if (!err) console.log("Persona creada");
+      });
+      if (persons[i].residence) {
+        for (var j = 0; j < persons[i].residence.length; ++j) {
+          var params1 = {name: persons[i].residence[j].residPlace};
+          var result = db.query("MATCH (p:Place) WHERE p.name = ({name}) RETURN p", params1);
+          if (result.length == 0) {
+            db.query("CREATE (p:Place {name: ({name}) })", params1);
+            console.log("Lugar "+params1.name+" creado");
+          }
+          var params2 = {_id: persons[i]._id,
+                          placeName: persons[i].residence[j].residPlace,
+                          placeDate: persons[i].residence[j].residDate};
+          db.query("MATCH (p:Person), (l:Place) WHERE p._id = ({_id}) AND l.name = ({placeName}) CREATE (p)-[r:livesIn {date: ({placeDate})}]->(l)", params2);
+          console.log("Relación "+params2._id+"-"+params2.placeName+" establecida");
+        }
+      }
+    }
+    for (var i = 0; i < families.length; ++i) {
+      if (families[i].husband && families[i].wife) {
+        var query = "MATCH (h:Person), (w:Person) WHERE h._id = ({husband}) AND w._id = ({wife}) CREATE (h)-[r:CoupleOf]->(w)";
+        db.query(query, families[i], function (err) {
+          if (err) console.log(err);
+          else console.log("Relación de pareja creada");
+        });
+      }
+      if (families[i].children) {
+        for (var j = 0; j < families[j].children.length; ++j) {
+          if (families[i].husband) {
+            var params = {husband: families[i].husband,
+                          children: families[i].children[j]};
+            var query = "MATCH (p:Person), (c:Person) WHERE p._id = ({husband}) AND c._id = ({children}) CREATE (p)-[r:ParentOf]->(c)";
+            db.query(query, params, function (err) {
+              if (err) console.log(err);
+              else (console.log("Relación padre-hijo creada"));
+            })
+          }
+          if (families[i].wife) {
+            var params = {wife: families[i].wife,
+                          children: families[i].children[j]};
+            var query = "MATCH (p:Person), (c:Person) WHERE p._id = ({wife}) AND c._id = ({children}) CREATE (p)-[r:ParentOf]->(c)";
+            db.query(query, params, function (err) {
+              if (err) console.log(err);
+              else (console.log("Relación madre-hijo creada"));
+            });
+          }
+        }
+      }
+    }
+  });
+}
 
 exports.deleteNode = function(req, res) {
   var intId = parseInt(""+req.params.id);
   var params = {_id: intId};
   console.log(params);
-  var deletePerson = 'MATCH (p:Person) WHERE id(p) = ({_id}) DELETE p';
-      deletePersonAndRels = 'MATCH (p:Person)-[r]-() WHERE id(p) = ({_id}) DELETE p, r';
+  var deletePerson = "MATCH (p:Person) WHERE id(p) = ({_id}) DELETE p";
+      deletePersonAndRels = "MATCH (p:Person)-[r]-() WHERE id(p) = ({_id}) DELETE p, r";
   var query_func = function (err) {
       if (err) {
         console.log(err);
@@ -332,7 +384,7 @@ exports.deleteNode = function(req, res) {
       }
       else res.json(true);
   };
-  db.query('MATCH (p:Person)-[r]-()\nWHERE id(p) = ({_id})\nRETURN r', params,
+  db.query("MATCH (p:Person)-[r]-()\nWHERE id(p) = ({_id})\nRETURN r", params,
     function (err, data) {
       console.log(err || data);
       if (!err) {
@@ -422,7 +474,10 @@ function deleteEndlines(array) {
 }
 
 function forEach(array, fn) {
-  for (var i = 0; i < array.length; ++i) {
-    fn(array[i], i);
+  //console.log(array);
+  if (array) {
+    for (var i = 0; i < array.length; ++i) {
+      fn(array[i], i);
+    }
   }
 }

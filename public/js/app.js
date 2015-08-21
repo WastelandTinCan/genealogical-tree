@@ -1,23 +1,26 @@
-var myApp = angular.module('myApp', []);
-myApp.config(['$routeProvider','$locationProvider', function ($routeProvider, $locationProvider) {
+var myApp = angular.module("myApp", []);
+myApp.config(["$routeProvider","$locationProvider", function ($routeProvider, $locationProvider) {
   $routeProvider.
-    when('/', {
-      templateUrl: '/partials/index',
+    when("/", {
+      templateUrl: "/partials/index",
       controller: IndexCtrl
     }).
-    when('/add', {
-      templateUrl: '/partials/newPerson',
+    when("/add", {
+      templateUrl: "/partials/newPerson",
       controller: NewPersonCtrl
     }).
-    when('/viewNode/:id', {
-      templateUrl: '/partials/viewNode',
+    when("/viewNode/:id", {
+      templateUrl: "/partials/viewNode",
       controller: DisplayNodeCtrl
     }).
-    when('/upload', {
-      templateUrl: 'partials/upload'
+    when("/upload", {
+      templateUrl: "partials/upload"
     }).
+    /*when("/deleteAll", {
+      controller: DeleteAllCtrl
+    }).*/
     otherwise({
-      redirectTo: '/'
+      redirectTo: "/"
     });
     $locationProvider.html5Mode(true);
 }]);

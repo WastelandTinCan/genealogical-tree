@@ -13,6 +13,7 @@
     "multer": "^0.1.8",
     "neo4j": "~1.1.0",
     "parse-gedcom": "^1.0.3",
-    "path": "*"
+    "path": "*",
+    "synchronize": "0.9.14"
   }
 }

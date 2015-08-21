@@ -2,21 +2,21 @@
 /* Controllers */
 
 function IndexCtrl($scope, $http, $location) {
-	$http.get('/api/allPersons').success(function (data) {
+	$http.get("/api/allPersons").success(function (data) {
     $scope.data = [];
     for (var i = 0; i < data.data.length; ++i) { 
       $scope.data.push({id: data.data[i].id, nodeData: data.data[i].nodeData}); 
     }
 	});
   $scope.deleteNode = function(id) {
-    $http.post('/api/deleteNode/'+id).success(function (data) {
-      $http.get('/api/allPersons').success(function (data) {
+    $http.post("/api/deleteNode/"+id).success(function (data) {
+      $http.get("/api/allPersons").success(function (data) {
         $scope.data = [];
         for (var i = 0; i < data.data.length; ++i) { 
           $scope.data.push({id: data.data[i].id, nodeData: data.data[i].nodeData}); 
         }
       });
-      $location.url('/');
+      $location.url("/");
     });
   };
 }
@@ -34,8 +34,8 @@ function NewPersonCtrl($scope, $http, $location) {
   messages[2] = document.getElementById("sex");
   messages[3] = document.getElementById("birthDate");
   messages[4] = document.getElementById("dates");
-  messages[5] = document.getElementById("birthCity");
-  messages[6] = document.getElementById("residCity");
+  messages[5] = document.getElementById("birthPlace");
+  messages[6] = document.getElementById("residPlace");
   messages[7] = document.getElementById("alerts");
   hideAll();
 	$scope.createPerson = function() {
@@ -66,23 +66,29 @@ function NewPersonCtrl($scope, $http, $location) {
       messages[4].style.display = "";
       validForm = false;
     }
-    if (!$scope.form.birthCity) {
+    if (!$scope.form.birthPlace) {
       messages[7].style.display = "";
       messages[5].style.display = "";
       validForm = false;
     }
-    if (!$scope.form.residCity) {
+    if (!$scope.form.residPlace) {
       messages[7].style.display = "";
       messages[6].style.display = "";
       validForm = false;
     }
     if (validForm) {
-      $http.post('/api/newPerson', $scope.form).success(function (data) {
-        $location.url('/');
+      $http.post("/api/newPerson", $scope.form).success(function (data) {
+        $location.url("/");
       })
     }
   }
 }
+
+/*function DeleteAllCtrl($scope, $http) {
+  $http.post("/api/deleteAll").success(function() {
+    console.log("Todo borrado");
+  });
+}*/
 
 function DisplayNodeCtrl($scope, $http, $location, $routeParams) {
   $scope.form = {};
@@ -92,9 +98,9 @@ function DisplayNodeCtrl($scope, $http, $location, $routeParams) {
                    sex: "sex",
                    birthDate: "birthDate",
                    deathDate: "deathDate",
-                   birthCity: "birthCity",
-                   residCity: "residCity",
-                   deathCity: "deathCity"};
+                   birthPlace: "birthPlace",
+                   residPlace: "residPlace",
+                   deathPlace: "deathPlace"};
   var isEditable = false;
   function displayElements(elem, action) {
     var display;
@@ -103,24 +109,24 @@ function DisplayNodeCtrl($scope, $http, $location, $routeParams) {
     for (var i = 0; i < elem.length; ++i) elem[i].style.display = display;
   }
   function getNodeData(id) {
-    $http.get('/api/nodeData/'+id).success(function (data) {
+    $http.get("/api/nodeData/"+id).success(function (data) {
     $scope.data = {name: data.data[0].name, 
                    surnames: data.data[0].surnames, 
                    sex: data.data[0].sex, 
                    birthDate: data.data[0].birthDate, 
                    deathDate: data.data[0].deathDate,
-                   birthCity: data.data[0].birthCity,
-                   residCity: data.data[0].residCity,
-                   deathCity: data.data[0].deathCity};
+                   birthPlace: data.data[0].birthPlace,
+                   residPlace: data.data[0].residPlace,
+                   deathPlace: data.data[0].deathPlace};
     console.log($scope.data);
     temp_data.name = $scope.data.name; 
     temp_data.surnames = $scope.data.surnames; 
     temp_data.sex = $scope.data.sex;
     temp_data.birthDate = $scope.data.birthDate;
     temp_data.deathDate = $scope.data.deathDate;
-    temp_data.birthCity = $scope.data.birthCity;
-    temp_data.residCity = $scope.data.residCity;
-    temp_data.deathCity = $scope.data.deathCity;
+    temp_data.birthPlace = $scope.data.birthPlace;
+    temp_data.residPlace = $scope.data.residPlace;
+    temp_data.deathPlace = $scope.data.deathPlace;
     });
   }
   var fields = [];
@@ -131,25 +137,25 @@ function DisplayNodeCtrl($scope, $http, $location, $routeParams) {
   messages[2] = document.getElementById("sex");
   messages[3] = document.getElementById("birthDate");
   messages[4] = document.getElementById("dates");
-  messages[5] = document.getElementById("birthCity");
-  messages[6] = document.getElementById("residCity");
+  messages[5] = document.getElementById("birthPlace");
+  messages[6] = document.getElementById("residPlace");
   messages[7] = document.getElementById("alerts");
   fields[0] = document.getElementById("field_name");
   fields[1] = document.getElementById("field_surnames");
   fields[2] = document.getElementById("field_sex");
   fields[3] = document.getElementById("field_birthDate");
   fields[4] = document.getElementById("field_deathDate");
-  fields[5] = document.getElementById("field_birthCity");
-  fields[6] = document.getElementById("field_residCity");
-  fields[7] = document.getElementById("field_deathCity");
+  fields[5] = document.getElementById("field_birthPlace");
+  fields[6] = document.getElementById("field_residPlace");
+  fields[7] = document.getElementById("field_deathPlace");
   data[0] = document.getElementById("name_data");
   data[1] = document.getElementById("surnames_data");
   data[2] = document.getElementById("sex_data");
   data[3] = document.getElementById("birthDate_data");
   data[4] = document.getElementById("deathDate_data");
-  data[5] = document.getElementById("birthCity_data");
-  data[6] = document.getElementById("residCity_data");
-  data[7] = document.getElementById("deathCity_data");
+  data[5] = document.getElementById("birthPlace_data");
+  data[6] = document.getElementById("residPlace_data");
+  data[7] = document.getElementById("deathPlace_data");
   var validForm = true;
   displayElements(messages, "hide");
   displayElements(fields, "hide");
@@ -169,9 +175,9 @@ function DisplayNodeCtrl($scope, $http, $location, $routeParams) {
     $scope.data.sex = temp_data.sex;
     $scope.data.birthDate = temp_data.birthDate;
     $scope.data.deathDate = temp_data.deathDate;
-    $scope.data.birthCity = temp_data.birthCity;
-    $scope.data.residCity = temp_data.residCity;
-    $scope.data.deathCity = temp_data.deathCity;
+    $scope.data.birthPlace = temp_data.birthPlace;
+    $scope.data.residPlace = temp_data.residPlace;
+    $scope.data.deathPlace = temp_data.deathPlace;
   }
 
   $scope.disableEditForm = function() {
@@ -184,9 +190,9 @@ function DisplayNodeCtrl($scope, $http, $location, $routeParams) {
     $scope.data.sex = temp_data.sex;
     $scope.data.birthDate = temp_data.birthDate;
     $scope.data.deathDate = temp_data.deathDate;
-    $scope.data.birthCity = temp_data.birthCity;
-    $scope.data.residCity = temp_data.residCity;
-    $scope.data.deathCity = temp_data.deathCity;
+    $scope.data.birthPlace = temp_data.birthPlace;
+    $scope.data.residPlace = temp_data.residPlace;
+    $scope.data.deathPlace = temp_data.deathPlace;
   }
 
   $scope.editData = function() {
@@ -197,9 +203,9 @@ function DisplayNodeCtrl($scope, $http, $location, $routeParams) {
                     sex: $scope.data.sex,
                     birthDate: $scope.data.birthDate,
                     deathDate: $scope.data.deathDate,
-                    birthCity: $scope.data.birthCity,
-                    residCity: $scope.data.residCity,
-                    deathCity: $scope.data.deathCity};
+                    birthPlace: $scope.data.birthPlace,
+                    residPlace: $scope.data.residPlace,
+                    deathPlace: $scope.data.deathPlace};
     if (!params.name) {
       messages[7].style.display = "";
       messages[0].style.display = "";
@@ -225,19 +231,19 @@ function DisplayNodeCtrl($scope, $http, $location, $routeParams) {
       messages[4].style.display = "";
       validForm = false;
     }
-    if (!params.birthCity) {
+    if (!params.birthPlace) {
       messages[7].style.display = "";
       messages[5].style.display = "";
       validForm = false;
     }
-    if (!params.residCity) {
+    if (!params.residPlace) {
       messages[7].style.display = "";
       messages[6].style.display = "";
       validForm = false;
     }
     console.log(validForm);
     if (validForm) {
-      $http.post('/api/editNode/'+id, params).success(function (data) {
+      $http.post("/api/editNode/"+id, params).success(function (data) {
         console.log(data);
         getNodeData(id);
         $scope.disableEditForm();
