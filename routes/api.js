@@ -15,6 +15,11 @@ exports.allPersons = function(req, res) {
 		})
 		res.json({data: results});
 	})
+  sync.fiber(function() {
+    var params = {};
+    var result = db.query("MATCH path = (n)-[r]->(m) RETURN path", params);
+    console.log(result);
+  });
 }
 
 exports.newPerson = function(req, res) {
@@ -186,16 +191,14 @@ exports.uploadAndParse = function(req, res) {
       }
       else {
         switch (line[1]) {
-          case "NAME": 
-            if (fileSplit[i+1].split(' ')[0] == "1") {
-              var name = "";
-              for (var j = 2; j < line.length; ++j) {
-                name += line[j];
-                if (j+1 < line.length) name += " ";
-              }
-              data.name = name.replace(/[/]/g, "");
+          case "NAME":
+            isName = true;
+            var name = "";
+            for (var j = 2; j < line.length; ++j) {
+              name += line[j];
+              if (j+1 < line.length) name += " ";
             }
-            else isName = true;
+            data.name = name.replace(/[/]/g, "");
             break;
           case "SEX":
             data.sex = line[2];
@@ -236,7 +239,7 @@ exports.uploadAndParse = function(req, res) {
           }
           data.marriagePlace = marriagePlace;
         }
-        isMarriage = !(fileSplit[i+1].split(' ')[0] == "1");
+        isMarriage = !(fileSplit[i+1].split(' ')[0] != "2");
       }
       else {
         switch (line[1]) {
@@ -304,7 +307,7 @@ exports.uploadAndParse = function(req, res) {
       }
     }
   }
-  console.log(persons);
+  console.log(families);
   sync.fiber(function() {
     for (var i = 0; i < persons.length; ++i) {
       var query = "CREATE (p:Person {";
@@ -332,7 +335,10 @@ exports.uploadAndParse = function(req, res) {
           var params2 = {_id: persons[i]._id,
                           placeName: persons[i].residence[j].residPlace,
                           placeDate: persons[i].residence[j].residDate};
-          db.query("MATCH (p:Person), (l:Place) WHERE p._id = ({_id}) AND l.name = ({placeName}) CREATE (p)-[r:livesIn {date: ({placeDate})}]->(l)", params2);
+          var query = "MATCH (p:Person), (l:Place) WHERE p._id = ({_id}) AND l.name = ({placeName}) CREATE (p)-[r:livedIn";
+          if (params2.placeDate) query += " {date: ({placeDate})}";
+          query += "]->(l)";
+          db.query(query, params2);
           console.log("Relación "+params2._id+"-"+params2.placeName+" establecida");
         }
       }
@@ -346,7 +352,7 @@ exports.uploadAndParse = function(req, res) {
         });
       }
       if (families[i].children) {
-        for (var j = 0; j < families[j].children.length; ++j) {
+        for (var j = 0; j < families[i].children.length; ++j) {
           if (families[i].husband) {
             var params = {husband: families[i].husband,
                           children: families[i].children[j]};
@@ -359,6 +365,7 @@ exports.uploadAndParse = function(req, res) {
           if (families[i].wife) {
             var params = {wife: families[i].wife,
                           children: families[i].children[j]};
+            console.log("children ="+params.children);
             var query = "MATCH (p:Person), (c:Person) WHERE p._id = ({wife}) AND c._id = ({children}) CREATE (p)-[r:ParentOf]->(c)";
             db.query(query, params, function (err) {
               if (err) console.log(err);

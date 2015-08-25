@@ -21,6 +21,117 @@ function IndexCtrl($scope, $http, $location) {
   };
 }
 
+function D3Ctrl($scope, $http, $location) {  
+    function idIndex(a, id) {
+      for (var i = 0; i < a.length; i++) {
+        if (a[i].id == id) return i;
+      }
+      return null;
+    }
+    function drawGraph(data) {
+      // Creating graph object
+      var nodes = [];
+      var links = [];
+      data.results[0].data.forEach(function (row) {
+        row.graph.nodes.forEach(function (n) {
+          var node = {id: n.id,
+                      label: n.labels[0],
+                      title: n.properties.name};
+          if (idIndex(nodes,n.id) == null) nodes.push(node);
+        });
+        links = links.concat(row.graph.relationships.map(function (r) {
+          return {source: idIndex(nodes, r.startNode),
+                  target: idIndex(nodes, r.endNode),
+                  type: r.type, 
+                  value: 1};
+        }));
+      });
+    graph = {nodes: nodes, links: links};
+    console.log(graph);
+
+    // force layout setup
+    var width = 960;
+    var height = 500;
+    var force = d3.layout.force(-120)
+                  .charge(10).linkDistance(10).size([width, height]);
+
+    // setup svg div
+    var svg = d3.select("#graph").append("svg")
+                .attr("width", "100%").attr("height", "100%")
+                .attr("pointer-events", "all");
+
+    // load graph (nodes,links) json from /graph endpoint
+    force.nodes(graph.nodes).links(graph.links).start();
+
+    // render relationships as lines
+    var link = svg.selectAll(".link")
+              .data(graph.links).enter()
+              .append("line").attr("class", "link");
+
+    //color assignment
+    var getColor = {"Person": "#80E810", 
+                    "Place": "#10DDE8"};
+
+    // render nodes as circles, css-class from label
+    var node = svg.selectAll(".node")
+                  .data(graph.nodes).enter()
+                  .append("circle")
+                  .attr("class", function (d) { 
+                    return "node "+d.label;
+                  })
+                  .attr("r", 50)
+                  .attr("fill", function (d) {
+                    return getColor[d.label];
+                  })
+                  .call(force.drag);
+
+    // html title attribute for title node-attribute
+    node.append("title")
+        .text(function (d) {
+          return d.title; 
+        });
+
+    // force feed algo ticks for coordinate computation
+    force.on("tick", function() {
+      link.attr("x1", function (d) { 
+        return d.source.x; 
+      })
+          .attr("stroke", "#999")
+          .attr("y1", function (d) { 
+            return d.source.y; 
+          })
+          .attr("x2", function (d) { 
+            return d.target.x; 
+          })
+          .attr("y2", function (d) { 
+            return d.target.y; 
+          });
+
+      node.attr("cx", function (d) { 
+            return d.x; 
+           })
+          .attr("cy", function (d) { 
+            return d.y; 
+          });
+    });
+  };
+  var postData = {"statements": [{"statement": "MATCH path = (n:Person)-[r:ParentOf]->(p:Person) RETURN path",
+                                  "resultDataContents": ["graph"]}]};
+  $.ajax({
+       type: "POST",
+       accept: "application/json",
+       contentType:"application/json; charset=utf-8",
+       url: "http://localhost:7474/db/data/transaction/commit",
+       data: JSON.stringify(postData),
+       success: function(data, textStatus, jqXHR) {
+          drawGraph(data);
+       },
+       failure: function(msg) {
+          console.log("failed");
+       }
+  });
+}
+
 function NewPersonCtrl($scope, $http, $location) {
 	$scope.form = {};
   function hideAll() {

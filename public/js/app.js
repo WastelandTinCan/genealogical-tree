@@ -1,9 +1,13 @@
 var myApp = angular.module("myApp", []);
 myApp.config(["$routeProvider","$locationProvider", function ($routeProvider, $locationProvider) {
   $routeProvider.
-    when("/", {
+    /*when("/", {
       templateUrl: "/partials/index",
       controller: IndexCtrl
+    })*/
+    when("/", {
+      templateUrl: "/partials/test",
+      controller: D3Ctrl
     }).
     when("/add", {
       templateUrl: "/partials/newPerson",

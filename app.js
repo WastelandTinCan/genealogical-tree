@@ -9,7 +9,6 @@ var multer = require("multer");
 var http = require("http");
 var path = require("path");
 var api = require("./routes/api");
-var gj = require("parse-gedcom");
 var done = false;
 var app = express();
 // all environments
@@ -23,7 +22,7 @@ app.use(multer({ dest: "./uploads/",
   },
   onFileUploadComplete: function (file) {
     console.log(file.fieldname + " subido a " + file.path)
-    done=true;
+    done = true;
   }}
 ));
 
