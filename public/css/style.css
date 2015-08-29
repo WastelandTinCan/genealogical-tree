@@ -5,6 +5,7 @@ body {
 
 a {
   color: #00B7FF;
+  text-align: center;
 }
 
 .btn-file {
@@ -26,3 +27,35 @@ a {
     cursor: inherit;
     display: block;
 }
+
+#sidePanel {
+    position: absolute;
+    top: 60%;
+    right: 0px;
+    width: 30%;
+    background-color: #80E810;
+    border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border: 0px solid #000000;
+}
+
+button#closePanel {
+    color: #AA0000;
+    width: 90px;
+    background-color: #EE0000;
+    border: 0px solid #EE0000;
+    border-radius: 40px 40px 40px 40px;
+    -moz-border-radius: 40px 40px 40px 40px;
+    -webkit-border-radius: 40px 40px 40px 40px;
+    align: center;
+}
+
+div#sidePanel.off {
+    display: none;
+}
+
+div#sidePanel.on {
+    display: ;
+}
+

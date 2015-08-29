@@ -5,7 +5,7 @@ var path = require("path");
 var sync = require("synchronize");
 var db = new neo.GraphDatabase("http://localhost:7474");
 
-sync(db, "query");
+// sync(db, "query");
 
 exports.allPersons = function(req, res) {
 	db.query("MATCH (p:Person) RETURN p", function (err, data) {
@@ -49,37 +49,68 @@ exports.newPerson = function(req, res) {
 
 exports.editNode = function(req, res) {
   var intId = parseInt(""+req.params.id);
-  var params = {_id: intId,
+  var params1 = {_id: intId,
                 name: req.body.name, 
                 surnames: req.body.surnames,
                 sex: req.body.sex,
                 birthDate: req.body.birthDate,
                 deathDate: req.body.deathDate,
                 birthPlace: req.body.birthPlace,
-                residPlace: req.body.residPlace,
-                deathPlace: req.body.deathPlace}
-  console.log(params);
-  var query = "MATCH (p:Person) WHERE id(p) = ({_id}) SET p.name = ({name}), p.surnames = ({surnames}), p.sex = ({sex}), p.birthDate = ({birthDate}), p.deathDate = ({deathDate}), p.birthPlace = ({birthPlace}), p.residPlace = ({residPlace}), p.deathPlace = ({deathPlace})";
-  db.query(query, params, function (err, data) {
-    if (err) {
-      console.log(err);
-      res.json(false);
-    }
-    else { 
-      console.log(data);
-      res.json(data);
-    }
+                deathPlace: req.body.deathPlace};
+  var query = "MATCH (p:Person) WHERE id(p) = ({_id}) SET ";
+  if (params1.name) query += "p.name = ({name})";
+  if (params1.surnames) query += ", p.surnames = ({surnames})";
+  if (params1.sex) query += ", p.sex = ({sex})";
+  if (params1.birthDate) query += ", p.birthDate = ({birthDate})"; 
+  if (params1.deathDate) query += ", p.deathDate = ({deathDate})";
+  if (params1.birthPlace) query += ", p.birthPlace = ({birthPlace})"; 
+  if (params1.deathPlace) query += ", p.deathPlace = ({deathPlace})";
+  db.query(query, params1, function(err) {
+    if (err) console.log(err);
+    else ("¡Bien!");
   });
+  /*var residPlaces = req.body.residPlaces;
+  if (residPlaces) {
+    sync.fiber(function() {
+      for (var i = 0; i < residPlaces.length; ++i) {
+        console.log(i);
+        var params2 = {name: residPlaces[i].placeName};
+        var result = db.query("MATCH (p:Place) WHERE p.name = ({name}) RETURN p", params2);
+        if (result.length == 0) db.query("CREATE (p:Place {name: ({name}) })", params2);
+      }
+    });
+    sync.fiber(function() {
+      for (var i = 0; i < residPlaces.length; ++i) {
+        var params3 = {_id: intId,
+                       placeName: residPlaces[i].placeName,
+                       time: residPlaces[i].timePeriod};
+        console.log("params3 =");
+        console.log(params3);
+        var query = "MATCH (p:Person), (l:Place) WHERE id(p) = ({_id}) AND l.name = ({placeName}) CREATE (p)-[r:livedIn";
+        if (params3.time) query += " {timePeriod: ({time})}";
+        query += "]->(l)";
+        var res = db.query(query, params3);
+        console.log(res);
+      }
+    });
+  }*/
 }
 
 exports.nodeData = function(req, res) {
   var results = [];
-  db.getNodeById(req.params.id, function (err, data) {
-      console.log(data._data.data.name);
-      results.push({name: data._data.data.name, surnames: data._data.data.surnames, sex: data._data.data.sex, birthDate: data._data.data.birthDate, deathDate: data._data.data.deathDate, birthPlace: data._data.data.birthPlace, residPlace: data._data.data.residPlace, deathPlace: data._data.data.deathPlace});
+  var params = {id: parseInt(""+req.params.id)};
+  db.query("MATCH (p:Person) WHERE id(p) = ({id}) RETURN p", params, function (err, data) {
+    results.push({name: data[0].p._data.data.name, surnames: data[0].p._data.data.surnames, sex: data[0].p._data.data.sex, birthDate: data[0].p._data.data.birthDate, deathDate: data[0].p._data.data.deathDate, birthPlace: data[0].p._data.data.birthPlace, deathPlace: data[0].p._data.data.deathPlace});
+    db.query("MATCH (p:Person)-[r:livedIn]->(pl:Place) WHERE id(p) = ({id}) RETURN pl", params, function (err, data) {
+      if (data) {
+        results[0].data = [];
+        for (var i = 0; i < data.length; ++i) results[0].residPlaces.push({position: i, placeName: data[i].pl._data.data.name});
+      }
       res.json({data: results});
+    });
   });
 }
+
 
 exports.uploadAndParse = function(req, res) {
   var fileData = req.files.gedcom_file;
@@ -321,34 +352,34 @@ exports.uploadAndParse = function(req, res) {
       if (persons[i].deathPlace) query += "deathPlace: ({deathPlace})";
       if (query[query.length-2] == ",") query = query.substring(0, query.length-2);
       query += " })";
-      db.query(query, persons[i], function (err) {
-        if (!err) console.log("Persona creada");
-      });
+      db.query(query, persons[i]);
       if (persons[i].residence) {
         for (var j = 0; j < persons[i].residence.length; ++j) {
           var params1 = {name: persons[i].residence[j].residPlace};
           var result = db.query("MATCH (p:Place) WHERE p.name = ({name}) RETURN p", params1);
           if (result.length == 0) {
             db.query("CREATE (p:Place {name: ({name}) })", params1);
-            console.log("Lugar "+params1.name+" creado");
           }
           var params2 = {_id: persons[i]._id,
                           placeName: persons[i].residence[j].residPlace,
-                          placeDate: persons[i].residence[j].residDate};
+                          timePeriod: persons[i].residence[j].residDate};
           var query = "MATCH (p:Person), (l:Place) WHERE p._id = ({_id}) AND l.name = ({placeName}) CREATE (p)-[r:livedIn";
-          if (params2.placeDate) query += " {date: ({placeDate})}";
+          if (params2.placeDate) query += " {timePeriod: ({timePeriod})}";
           query += "]->(l)";
           db.query(query, params2);
-          console.log("Relación "+params2._id+"-"+params2.placeName+" establecida");
         }
       }
+      //console.log("Residencias creadas");
     }
     for (var i = 0; i < families.length; ++i) {
       if (families[i].husband && families[i].wife) {
         var query = "MATCH (h:Person), (w:Person) WHERE h._id = ({husband}) AND w._id = ({wife}) CREATE (h)-[r:CoupleOf]->(w)";
+        db.query("MATCH (p:Person) WHERE p._id = ({husband})", families[i], function (err, data) {
+          console.log("¿Existe? ", data);
+        })
         db.query(query, families[i], function (err) {
           if (err) console.log(err);
-          else console.log("Relación de pareja creada");
+          else console.log("Pareja creada");
         });
       }
       if (families[i].children) {
@@ -359,23 +390,23 @@ exports.uploadAndParse = function(req, res) {
             var query = "MATCH (p:Person), (c:Person) WHERE p._id = ({husband}) AND c._id = ({children}) CREATE (p)-[r:ParentOf]->(c)";
             db.query(query, params, function (err) {
               if (err) console.log(err);
-              else (console.log("Relación padre-hijo creada"));
+              else console.log("Relación padre-hijo creada");
             })
           }
           if (families[i].wife) {
             var params = {wife: families[i].wife,
                           children: families[i].children[j]};
-            console.log("children ="+params.children);
             var query = "MATCH (p:Person), (c:Person) WHERE p._id = ({wife}) AND c._id = ({children}) CREATE (p)-[r:ParentOf]->(c)";
             db.query(query, params, function (err) {
               if (err) console.log(err);
-              else (console.log("Relación madre-hijo creada"));
+              else console.log("Relación madre-hijo creada");
             });
           }
         }
       }
     }
   });
+  console.log("Finalizado");
 }
 
 exports.deleteNode = function(req, res) {
