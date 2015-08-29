@@ -236,6 +236,7 @@ function GraphCtrl($scope, $http, $location) {
   }
 
   $scope.form = {};
+  //Hola
   var temp_data = {name: "name",
 								   surnames: "surnames",
 								   sex: "sex",
