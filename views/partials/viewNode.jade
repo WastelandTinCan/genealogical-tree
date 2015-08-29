@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 form(name="edit-person" class="form-horizontal")
 	div(ng-switch="isEditable()")
 		button(type="link" class="btn btn-link" ng-switch-when="false" ng-click="enableEditForm()") Editar
@@ -61,3 +62,17 @@ form(name="edit-person" class="form-horizontal")
 			input(id="field_deathPlace" type="text" class="form-control" ng-model="data.deathPlace" placeholder="Ciudad de defunción")
 	div(class="form-group" ng-switch="isEditable()")
 		button(ng-click="editData()" ng-switch-when="true" class="btn btn-default") Editar datos
+=======
+label(for='name')
+// input(ng-model='form.name', name='name')
+// button(ng-click='addChild()', class='btn btn-default') New Child
+h2 {{data.name}}
+li Nombre: {{data.name}}
+li Apellidos: {{data.surnames}}
+li Sexo: {{data.sex}}
+li Fecha de nacimiento: {{data.birthDate | date: 'dd/MM/yyyy'}}
+li Fecha de defunción: {{data.deathDate | date: 'dd/MM/yyyy'}}
+li Ciudad de nacimiento: {{data.birthCity}}
+li Ciudad de residencia: {{data.residCity}}
+li Ciudad de defunción: {{data.deathCity}}
+>>>>>>> parent of c37cb41... Added support to edit nodes on-time

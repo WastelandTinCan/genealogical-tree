@@ -10,7 +10,7 @@ sync(db, "query");
 exports.allPersons = function(req, res) {
 	db.query("MATCH (p:Person) RETURN p", function (err, data) {
 		var results = [];
-		forEach(data, function (item) {
+		forEach(data, function(item) {
 			results.push({id: item.p._data.metadata.id, nodeData: item.p._data.data});
 		})
 		res.json({data: results});
@@ -23,6 +23,7 @@ exports.allPersons = function(req, res) {
 }
 
 exports.newPerson = function(req, res) {
+  console.log(nextIndex);
 	var params = {name: req.body.name, 
                 surnames: req.body.surnames,
                 sex: req.body.sex,
@@ -32,6 +33,7 @@ exports.newPerson = function(req, res) {
                 residPlace: req.body.residPlace,
                 deathPlace: req.body.deathPlace}
   console.log(params);
+<<<<<<< HEAD
   var query = "CREATE (p:Person {name: ({name}), surnames: ({surnames}), sex: ({sex}), birthDate: ({birthDate}),";
   if (params.deathDate) query += "deathDate: ({deathDate}),";
   query += " birthPlace: ({birthPlace}), residPlace: ({residPlace})"; 
@@ -39,6 +41,22 @@ exports.newPerson = function(req, res) {
   else query += " })";
 	db.query(query, params, function (err) {
 		if (err) {
+=======
+  var query = 'CREATE (p:Person {name: ({name}), surnames: ({surnames}), sex: ({sex}), birthDate: ({birthDate}),';
+  if (params.deathDate) {
+    query += 'deathDate: ({deathDate}),';
+  }
+  query += 'birthCity: ({birthCity}), residCity: ({residCity})'; 
+  if (params.deathCity) {
+    query += ', deathCity: ({deathCity}) })';
+  }
+  else {
+    query += ' })';
+  }
+	db.query(query, params, function (err) {
+		if(err) {
+      console.log("Ha salido mal");
+>>>>>>> parent of c37cb41... Added support to edit nodes on-time
       res.json(false); 
     }
     else {
@@ -47,6 +65,7 @@ exports.newPerson = function(req, res) {
 	})
 }
 
+<<<<<<< HEAD
 exports.editNode = function(req, res) {
   var intId = parseInt(""+req.params.id);
   var params = {_id: intId,
@@ -72,15 +91,18 @@ exports.editNode = function(req, res) {
   });
 }
 
+=======
+>>>>>>> parent of c37cb41... Added support to edit nodes on-time
 exports.nodeData = function(req, res) {
   var results = [];
-  db.getNodeById(req.params.id, function (err, data) {
+  var node = db.getNodeById(req.params.id, function(err, data) {
       console.log(data._data.data.name);
       results.push({name: data._data.data.name, surnames: data._data.data.surnames, sex: data._data.data.sex, birthDate: data._data.data.birthDate, deathDate: data._data.data.deathDate, birthPlace: data._data.data.birthPlace, residPlace: data._data.data.residPlace, deathPlace: data._data.data.deathPlace});
       res.json({data: results});
   });
 }
 
+<<<<<<< HEAD
 exports.uploadAndParse = function(req, res) {
   var fileData = req.files.gedcom_file;
   var file = fs.readFileSync(fileData.path, "utf8");
@@ -197,6 +219,32 @@ exports.uploadAndParse = function(req, res) {
             for (var j = 2; j < line.length; ++j) {
               name += line[j];
               if (j+1 < line.length) name += " ";
+=======
+exports.newChild = function(req, res) {
+  console.log(req.body);
+  var params = {name: req.params.id},
+      last = {},
+      Query,
+      firstChild = 'MATCH (p:Master)\nWHERE n.name = ({name})\nCREATE (n)<-[:CHILD_OF]-(l:Child {name: ({child})})\nRETURN l',
+      endChild = 'MATCH (n:Child)\nWHERE n.name = ({name})\nCREATE (n)<-[:CHILD_OF]-(l:Child {name: ({child})})\nRETURN l';
+
+  db.query('MATCH (n:Master)-[a:CHILD_OF*1..]-(l:Child)\nWHERE n.name = ({name}) AND NOT (l)<-[:CHILD_OF]-()\nRETURN l', params,
+    function (err, data) {
+      if(err) { console.log(err); } else {
+        console.log(data);
+        if(data.length < 1) {
+          Query = firstChild;
+          params.child = req.body.name;
+        } else {
+        last.name = data[0].l._data.data.name; //name of terminal child
+        last.child = req.body.name; //name of new child
+        params = last;
+        Query = endChild;
+        }
+        db.query(Query,params, function(err, data) {
+            if(err) {console.log('second query: ' + err);} else {
+              res.json(true);
+>>>>>>> parent of c37cb41... Added support to edit nodes on-time
             }
             data.name = name.replace(/[/]/g, "");
             break;
@@ -379,18 +427,23 @@ exports.uploadAndParse = function(req, res) {
 }
 
 exports.deleteNode = function(req, res) {
-  var intId = parseInt(""+req.params.id);
-  var params = {_id: intId};
+  var params = {name: req.params.id};
   console.log(params);
+<<<<<<< HEAD
   var deletePerson = "MATCH (p:Person) WHERE id(p) = ({_id}) DELETE p";
       deletePersonAndRels = "MATCH (p:Person)-[r]-() WHERE id(p) = ({_id}) DELETE p, r";
+=======
+  var qPerson = 'MATCH (p:Person {name: ({name}) })\n DELETE p';
+      qPersonChildren = 'MATCH (p:Person { name: ({name}) })-[r]-()\nDELETE p, r';
+>>>>>>> parent of c37cb41... Added support to edit nodes on-time
   var query_func = function (err) {
       if (err) {
-        console.log(err);
+        console.log("Error Q2");
         res.json(false);
       }
-      else res.json(true);
+        else {res.json(true);}
   };
+<<<<<<< HEAD
   db.query("MATCH (p:Person)-[r]-()\nWHERE id(p) = ({_id})\nRETURN r", params,
     function (err, data) {
       console.log(err || data);
@@ -399,8 +452,19 @@ exports.deleteNode = function(req, res) {
           db.query(deletePersonAndRels, params, query_func);
         }
         else db.query(deletePerson, params, query_func);
+=======
+  db.query('MATCH (p:Person)-[:CHILD_OF*1..]-(l:Child)\nWHERE p.name = ({name})\nRETURN l', params,
+    function (err, data) {
+      if (err) {
+        console.log("Error");
+        console.log(data);
+>>>>>>> parent of c37cb41... Added support to edit nodes on-time
       }
-    });
+      else {
+        if (data.length == 0) {db.query(qMaster, params, query_func);}
+        else {db.query(qMasterChildren, params, query_func);}
+      }
+  });
 }
 
 function parseDate(day, month, year) {

@@ -4,6 +4,7 @@
 		"selected_items":
 		[
 			[
+<<<<<<< HEAD
 				"death",
 				"deathPlace"
 			],
@@ -104,6 +105,16 @@
 				"residCity"
 			],
 			[
+=======
+				"re",
+				"residCity"
+			],
+			[
+				"deat",
+				"deathCity"
+			],
+			[
+>>>>>>> parent of c37cb41... Added support to edit nodes on-time
 				"deathCi",
 				"deathCity_data"
 			],
@@ -116,6 +127,25 @@
 				"deathDate_data"
 			],
 			[
+<<<<<<< HEAD
+=======
+				"de",
+				"deathDate"
+			],
+			[
+				"bir",
+				"birthCity"
+			],
+			[
+				"birth",
+				"birthDate"
+			],
+			[
+				"birt",
+				"birthCity"
+			],
+			[
+>>>>>>> parent of c37cb41... Added support to edit nodes on-time
 				"mess",
 				"messages"
 			],
@@ -208,6 +238,7 @@
 	"buffers":
 	[
 		{
+<<<<<<< HEAD
 			"contents": "\n/**\n * Module dependencies.\n */\n\nvar express = require(\"express\");\nvar routes = require(\"./routes\");\nvar multer = require(\"multer\");\nvar http = require(\"http\");\nvar path = require(\"path\");\nvar api = require(\"./routes/api\");\nvar done = false;\nvar app = express();\n// all environments\n\napp.use(multer({ dest: \"./uploads/\",\n rename: function (fieldname, filename) {\n    return filename+Date.now();\n  },\n  onFileUploadStart: function (file) {\n    console.log(file.originalname + \" se está subiendo...\")\n  },\n  onFileUploadComplete: function (file) {\n    console.log(file.fieldname + \" subido a \" + file.path)\n    done = true;\n  }}\n));\n\napp.set(\"port\", process.env.PORT || 3000);\napp.set(\"views\", path.join(__dirname, \"views\"));\napp.set(\"view engine\", \"jade\");\napp.use(express.favicon());\napp.use(express.logger(\"dev\"));\napp.use(express.json());\napp.use(express.urlencoded());\napp.use(express.methodOverride());\napp.use(app.router);\napp.use(express.static(path.join(__dirname, \"public\")));\n\n// development only\nif (\"development\" == app.get(\"env\")) {\n  app.use(express.errorHandler());\n}\napp.get(\"/\", routes.index);\napp.get(\"/partials/:name\", routes.partials);\n\n// APIs\n\napp.get(\"/api/allPersons\", api.allPersons);\napp.post(\"/api/newPerson\", api.newPerson);\napp.get(\"/api/nodeData/:id\", api.nodeData);\napp.post(\"/api/editNode/:id\", api.editNode);\napp.post(\"/api/deleteNode/:id\", api.deleteNode);\napp.post(\"/api/upload\", api.uploadAndParse);\n\nhttp.createServer(app).listen(app.get(\"port\"), function(){\n  console.log(\"Express server listening on port \" + app.get(\"port\"));\n});\n",
 			"file": "app.js",
 			"file_size": 1603,
@@ -231,6 +262,19 @@
 			"settings":
 			{
 				"buffer_size": 15854,
+=======
+			"file": "public/js/app.js",
+			"settings":
+			{
+				"buffer_size": 632,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app.js",
+			"settings":
+			{
+				"buffer_size": 1132,
 				"line_ending": "Unix"
 			}
 		},
@@ -238,7 +282,7 @@
 			"file": "views/index.jade",
 			"settings":
 			{
-				"buffer_size": 479,
+				"buffer_size": 329,
 				"line_ending": "Unix"
 			}
 		},
@@ -246,11 +290,51 @@
 			"file": "views/partials/index.jade",
 			"settings":
 			{
-				"buffer_size": 213,
+				"buffer_size": 154,
 				"line_ending": "Unix"
 			}
 		},
 		{
+			"file": "views/partials/newPerson.jade",
+			"settings":
+			{
+				"buffer_size": 2292,
+>>>>>>> parent of c37cb41... Added support to edit nodes on-time
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "views/index.jade",
+			"settings":
+			{
+<<<<<<< HEAD
+				"buffer_size": 479,
+=======
+				"buffer_size": 3714,
+>>>>>>> parent of c37cb41... Added support to edit nodes on-time
+				"line_ending": "Unix"
+			}
+		},
+		{
+<<<<<<< HEAD
+			"file": "views/partials/index.jade",
+			"settings":
+			{
+				"buffer_size": 213,
+=======
+			"contents": "var neo = require('neo4j');\nvar db = new neo.GraphDatabase('http://localhost:7474');\n\nexports.allPersons = function(req, res) {\n	db.query('MATCH (p:Person)\\nRETURN p', function(err, data) {\n		var results = [];\n		forEach(data, function(item) {\n			results.push({id: item.p._data.metadata.id, nodeData: item.p._data.data});\n		})\n    console.log(results);\n		res.json({data: results});\n	})\n}\n\nexports.newPerson = function(req, res) {\n	var params = {name: req.body.name, \n                surnames: req.body.surnames,\n                sex: req.body.sex,\n                birthDate: req.body.birthDate,\n                deathDate: req.body.deathDate,\n                birthCity: req.body.birthCity,\n                residCity: req.body.residCity,\n                deathCity: req.body.deathCity}\n  console.log(params);\n  var query = 'CREATE (p:Person {name: ({name}), surnames: ({surnames}), sex: ({sex}), birthDate: ({birthDate}),';\n  if (params.deathDate) {\n    query += 'deathDate: ({deathDate}),';\n  }\n  query += 'birthCity: ({birthCity}), residCity: ({residCity})'; \n  if (params.deathCity) {\n    query += ', deathCity: ({deathCity}) })';\n  }\n  else {\n    query += ' })';\n  }\n  console.log(query);\n	db.query(query, params, function (err) {\n		if(err) {\n      console.log(\"Ha salido mal\");\n      res.json(false); \n    }\n    else {\n      console.log(\"Ha salido bien\");\n			res.json(true);\n		}\n	})\n}\n\nexports.nodeData = function(req, res) {\n  var params = {node_id: req.params.id};\n  results = [];\n  //db.getNode\n  db.query('MATCH (p:Person) WHERE id(p) = ({node_id}) RETURN p', params, function (err, data) {\n    if (err) { console.log(data); console.log(err); }\n    else if (!err) {\n      console.log(\"¿En serio entra aquí? Aitor puta\");      \n      results.push({name: data[0].p._data.data.name, surnames: data[0].p._data.data.surnames, sex: data[0].p._data.data.sex, birthDate: data[0].p._data.data.birthDate, deathDate: data[0].p._data.data.deathDate, birthCity: data[0].p._data.data.birthCity, residCity: data[0].p._data.data.residCity, deathCity: data[0].p._data.data.deathCity});\n      res.json({data: results});\n    }\n  })\n  console.log(\"finish\");\n}\n\nexports.newChild = function(req, res) {\n  console.log(req.body);\n  var params = {name: req.params.id},\n      last = {},\n      Query,\n      firstChild = 'MATCH (p:Master)\\nWHERE n.name = ({name})\\nCREATE (n)<-[:CHILD_OF]-(l:Child {name: ({child})})\\nRETURN l',\n      endChild = 'MATCH (n:Child)\\nWHERE n.name = ({name})\\nCREATE (n)<-[:CHILD_OF]-(l:Child {name: ({child})})\\nRETURN l';\n\n  db.query('MATCH (n:Master)-[a:CHILD_OF*1..]-(l:Child)\\nWHERE n.name = ({name}) AND NOT (l)<-[:CHILD_OF]-()\\nRETURN l', params,\n    function (err, data) {\n      if(err) { console.log(err); } else {\n        console.log(data);\n        if(data.length < 1) {\n          Query = firstChild;\n          params.child = req.body.name;\n        } else {\n        last.name = data[0].l._data.data.name; //name of terminal child\n        last.child = req.body.name; //name of new child\n        params = last;\n        Query = endChild;\n        }\n        db.query(Query,params, function(err, data) {\n            if(err) {console.log('second query: ' + err);} else {\n              res.json(true);\n            }\n          })\n      }\n    })\n}\n\nexports.deleteNode = function(req, res) {\n  var params = {name: req.params.id};\n  console.log(params);\n  var qPerson = 'MATCH (p:Person {name: ({name}) })\\n DELETE p';\n      qPersonChildren = 'MATCH (p:Person { name: ({name}) })-[r]-()\\nDELETE p, r';\n  var query_func = function (err) {\n      if (err) {\n        console.log(\"Error Q2\");\n        res.json(false);\n      }\n        else {res.json(true);}\n  };\n  db.query('MATCH (p:Person)-[:CHILD_OF*1..]-(l:Child)\\nWHERE p.name = ({name})\\nRETURN l', params,\n    function (err, data) {\n      if (err) {\n        console.log(\"Error\");\n        console.log(data);\n      }\n      else {\n        if (data.length == 0) {db.query(qMaster, params, query_func);}\n        else {db.query(qMasterChildren, params, query_func);}\n      }\n  });\n}\n\nfunction forEach(array, fn) {\n  for(var i = 0; i < array.length; i++) {\n    fn(array[i], i);\n  }\n}",
+			"file": "routes/api.js",
+			"file_size": 4133,
+			"file_write_time": 130798122130000000,
+			"settings":
+			{
+				"buffer_size": 4130,
+>>>>>>> parent of c37cb41... Added support to edit nodes on-time
+				"line_ending": "Unix"
+			}
+		},
+		{
+<<<<<<< HEAD
 			"file": "public/js/controllers.js",
 			"settings":
 			{
@@ -263,6 +347,12 @@
 			"settings":
 			{
 				"buffer_size": 15,
+=======
+			"file": "views/partials/viewNode.jade",
+			"settings":
+			{
+				"buffer_size": 483,
+>>>>>>> parent of c37cb41... Added support to edit nodes on-time
 				"line_ending": "Unix"
 			}
 		}
@@ -304,12 +394,18 @@
 	},
 	"expanded_folders":
 	[
+<<<<<<< HEAD
 		"/Users/Lousan92/genealogical-tree/json_files",
+=======
+		"/Users/Lousan92/genealogical-tree/public",
+		"/Users/Lousan92/genealogical-tree/public/js",
+>>>>>>> parent of c37cb41... Added support to edit nodes on-time
 		"/Users/Lousan92/genealogical-tree/routes",
 		"/Users/Lousan92/genealogical-tree/views"
 	],
 	"file_history":
 	[
+<<<<<<< HEAD
 		"/Users/Lousan92/genealogical-tree/Dossin.GED",
 		"/Users/Lousan92/genealogical-tree/public/js/controllers.js",
 		"/Users/Lousan92/genealogical-tree/public/js/app.js",
@@ -349,6 +445,16 @@
 		"/Users/Lousan92/genealogical-tree/public/js/fileinput/fileinput.js",
 		"/Users/Lousan92/genealogical-tree/views/partials/deletion.jade",
 		"/Users/Lousan92/conceptual-chains/routes/api.js",
+=======
+		"/Users/Lousan92/genealogical-tree/views/partials/newPerson.jade",
+		"/Users/Lousan92/genealogical-tree/routes/api.js",
+		"/Users/Lousan92/genealogical-tree/app.js",
+		"/Users/Lousan92/genealogical-tree/README.md",
+		"/Users/Lousan92/conceptual-chains/routes/api.js",
+		"/Users/Lousan92/genealogical-tree/views/index.jade",
+		"/Users/Lousan92/genealogical-tree/package.json",
+		"/Users/Lousan92/genealogical-tree/public/js/app.js",
+>>>>>>> parent of c37cb41... Added support to edit nodes on-time
 		"/Users/Lousan92/conceptual-chains/app.js",
 		"/Users/Lousan92/conceptual-chains/README.md",
 		"/Users/Lousan92/conceptual-chains/package.json",
@@ -437,7 +543,42 @@
 		"/Users/Lousan92/Documents/cocasion/Web/css/modern-business.css",
 		"/Users/Lousan92/Documents/cocasion/Web/js/jquery.js",
 		"/Users/Lousan92/Documents/cocasion/Web/js/bootstrap.min.js",
+<<<<<<< HEAD
 		"/Users/Lousan92/Documents/cocasion/Web/faq.html"
+=======
+		"/Users/Lousan92/Documents/cocasion/Web/faq.html",
+		"/Users/Lousan92/Documents/cocasion/Web/full-width.html",
+		"/Users/Lousan92/Documents/cocasion/Web/pricing.html",
+		"/Users/Lousan92/Downloads/LabZeOS/LAB1/Lab1-codis/ZeOs_v2/io.c",
+		"/Users/Lousan92/Documents/cocasion/Web/contact.html",
+		"/Users/Lousan92/Documents/cocasion/Web/sidebar.html",
+		"/Users/Lousan92/Documents/cocasion/Web/a.html",
+		"/Users/Lousan92/Documents/cocasion/modern-business/js/contact_me.js",
+		"/Users/Lousan92/Documents/cocasion/modern-business/js/jqBootstrapValidation.js",
+		"/Users/Lousan92/Documents/cocasion/modern-business/b.html",
+		"/Users/Lousan92/Documents/cocasion/modern-business/a.html",
+		"/Users/Lousan92/Documents/cocasion/modern-business/contact.html",
+		"/Users/Lousan92/Documents/cocasion/modern-business/blog-post.html",
+		"/Users/Lousan92/Documents/cocasion/modern-business/css/modern-business.css",
+		"/Users/Lousan92/Documents/cocasion/modern-business/css/bootstrap.css",
+		"/Users/Lousan92/Documents/cocasion/modern-business/index.html",
+		"/Users/Lousan92/Documents/cocasion/modern-business/bin/contact_me.php",
+		"/Users/Lousan92/Documents/cocasion/modern-business/js/jquery.js",
+		"/Users/Lousan92/Documents/cocasion/modern-business/js/jquery-1.11.0.js",
+		"/Users/Lousan92/Dropbox/Universidad/SOAD/LabZeOS/ZeOs_versions/ZeOs_v1_completat/entry.S",
+		"/Users/Lousan92/Dropbox/Universidad/SOAD/LabZeOS/ZeOs_versions/ZeOs_v1_completat/utils.c",
+		"/Users/Lousan92/Dropbox/Universidad/SOAD/LabZeOS/ZeOs_versions/ZeOs_v1_completat/user.c",
+		"/Users/Lousan92/Dropbox/Universidad/SOAD/LabZeOS/ZeOs_versions/ZeOs_v1_completat/sys.c",
+		"/Users/Lousan92/Dropbox/Universidad/SOAD/LabZeOS/ZeOs_versions/ZeOs_v1_completat/libc.c",
+		"/Users/Lousan92/Downloads/LabZeOS/ZeOs_versions/ZeOs_v2_completat/interrupt.c",
+		"/Users/Lousan92/Downloads/LabZeOS/ZeOs_versions/ZeOs_v2_completat/sched.c",
+		"/Users/Lousan92/Downloads/LabZeOS/ZeOs_versions/ZeOs_v2_completat/sys.c",
+		"/Users/Lousan92/Downloads/LabZeOS/LAB1/Lab1-codis/ZeOs_v1/libc.c",
+		"/Users/Lousan92/Downloads/LabZeOS/LAB1/Lab1-codis/ZeOs_v1/mm.c",
+		"/Users/Lousan92/Downloads/LabZeOS/LAB1/Lab1-codis/ZeOs_v1/sys.c",
+		"/Users/Lousan92/Downloads/LabZeOS/LAB1/Lab1-codis/ZeOs_v1/include/types.h",
+		"/Users/Lousan92/Downloads/LabZeOS/LAB1/Lab1-codis/ZeOs_v1/include/devices.h"
+>>>>>>> parent of c37cb41... Added support to edit nodes on-time
 	],
 	"find":
 	{
@@ -457,6 +598,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+<<<<<<< HEAD
 			"@F002",
 			"@F0004",
 			"The early years of married life were spent on the Kendall home farm in Podunk",
@@ -498,6 +640,8 @@
 			"getNodeBy",
 			"getNode",
 			"id",
+=======
+>>>>>>> parent of c37cb41... Added support to edit nodes on-time
 			"});\n",
 			"div(class=\"form-group\")",
 			"movie-netw",
@@ -584,7 +728,52 @@
 			"panel-heading",
 			"height",
 			"panel-default",
+<<<<<<< HEAD
 			"list-social-icons"
+=======
+			"list-social-icons",
+			"list-unstyled",
+			"facebook",
+			"list-social-icons",
+			"social",
+			":hover",
+			"img:hover",
+			"img",
+			"a",
+			"facebook",
+			"a",
+			"btn-primary",
+			"btn btn-primary",
+			"button",
+			"submit",
+			"primary",
+			"btn btn-primary",
+			"btn-btn primary",
+			"fa-",
+			"p",
+			".p",
+			"btn-primary",
+			"panel-heading",
+			"heading-panel",
+			"btn-primary",
+			"panel-heading",
+			"btn-primary",
+			"panel-heading",
+			"heading",
+			"primary",
+			"btn btn-primary",
+			"btn btn",
+			"btn",
+			"btn btn",
+			"btn-btn",
+			"col-md-",
+			"col-md",
+			"navbar",
+			"footer",
+			"col-lg-1",
+			"col-lg-12",
+			"fill"
+>>>>>>> parent of c37cb41... Added support to edit nodes on-time
 		],
 		"highlight": false,
 		"in_selection": false,
@@ -605,24 +794,41 @@
 	"groups":
 	[
 		{
+<<<<<<< HEAD
 			"selected": 5,
+=======
+			"selected": 6,
+>>>>>>> parent of c37cb41... Added support to edit nodes on-time
 			"sheets":
 			[
 				{
 					"buffer": 0,
+<<<<<<< HEAD
 					"file": "app.js",
 					"semi_transient": false,
 					"settings":
 					{
 						"buffer_size": 1570,
+=======
+					"file": "public/js/app.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 632,
+>>>>>>> parent of c37cb41... Added support to edit nodes on-time
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
+<<<<<<< HEAD
 								617,
 								617
+=======
+								29,
+								29
+>>>>>>> parent of c37cb41... Added support to edit nodes on-time
 							]
 						],
 						"settings":
@@ -694,24 +900,156 @@
 						"translation.y": 226.0,
 						"zoom_level": 1.0
 					},
+<<<<<<< HEAD
 					"stack_index": 5,
+=======
+					"stack_index": 7,
+>>>>>>> parent of c37cb41... Added support to edit nodes on-time
 					"type": "text"
 				},
 				{
 					"buffer": 1,
+<<<<<<< HEAD
 					"file": "indi2.ged",
 					"semi_transient": false,
 					"settings":
 					{
 						"buffer_size": 770,
+=======
+					"file": "app.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1132,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
+								866,
+								866
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "views/index.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 329,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								14,
+								14
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "views/partials/index.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 154,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								35,
+								39
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "views/partials/newPerson.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2292,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								47,
+								47
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "public/js/controllers.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3714,
+>>>>>>> parent of c37cb41... Added support to edit nodes on-time
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+<<<<<<< HEAD
 								769,
 								769
+=======
+								57,
+								113
+>>>>>>> parent of c37cb41... Added support to edit nodes on-time
 							]
 						],
 						"settings":
@@ -867,31 +1205,50 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
+<<<<<<< HEAD
 						"translation.y": 2568.0,
+=======
+						"translation.y": 0.0,
+>>>>>>> parent of c37cb41... Added support to edit nodes on-time
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
+<<<<<<< HEAD
 					"buffer": 3,
 					"file": "views/index.jade",
 					"semi_transient": false,
 					"settings":
 					{
 						"buffer_size": 479,
+=======
+					"buffer": 6,
+					"file": "routes/api.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4130,
+>>>>>>> parent of c37cb41... Added support to edit nodes on-time
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
+<<<<<<< HEAD
 								434,
 								434
+=======
+								3659,
+								3659
+>>>>>>> parent of c37cb41... Added support to edit nodes on-time
 							]
 						],
 						"settings":
 						{
+<<<<<<< HEAD
 							"BracketHighlighterBusy": false,
 							"bh_regions":
 							[
@@ -952,10 +1309,14 @@
 								"bh_round_content"
 							],
 							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
+=======
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+>>>>>>> parent of c37cb41... Added support to edit nodes on-time
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
+<<<<<<< HEAD
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
@@ -1133,30 +1494,48 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 339.0,
+=======
+						"translation.y": 1151.0,
+>>>>>>> parent of c37cb41... Added support to edit nodes on-time
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
+<<<<<<< HEAD
 					"buffer": 6,
 					"file": "views/partials/test.jade",
 					"semi_transient": false,
 					"settings":
 					{
 						"buffer_size": 15,
+=======
+					"buffer": 7,
+					"file": "views/partials/viewNode.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 483,
+>>>>>>> parent of c37cb41... Added support to edit nodes on-time
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
+<<<<<<< HEAD
 								15,
 								15
+=======
+								483,
+								483
+>>>>>>> parent of c37cb41... Added support to edit nodes on-time
 							]
 						],
 						"settings":
 						{
+<<<<<<< HEAD
 							"BracketHighlighterBusy": false,
 							"bh_regions":
 							[
@@ -1217,12 +1596,19 @@
 								"bh_round_content"
 							],
 							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage"
+=======
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+>>>>>>> parent of c37cb41... Added support to edit nodes on-time
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
+<<<<<<< HEAD
 					"stack_index": 4,
+=======
+					"stack_index": 6,
+>>>>>>> parent of c37cb41... Added support to edit nodes on-time
 					"type": "text"
 				}
 			]

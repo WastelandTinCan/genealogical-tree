@@ -2,6 +2,12 @@ h2 Personas
 h3 Probando el parseado de archivos
 div(ng-repeat="node in data")
   h3 {{node.nodeData.name}}
+<<<<<<< HEAD
   a(ng-href="/viewNode/{{node.id}}") Ver
   |  |     
   a(ng-href="/" ng-click="deleteNode(node.id)") Borrar
+=======
+  a(href='/viewNode/{{node.id}}') Ver
+  |  - 
+  a(href='/delete/{{node.id}}') Borrar
+>>>>>>> parent of c37cb41... Added support to edit nodes on-time
